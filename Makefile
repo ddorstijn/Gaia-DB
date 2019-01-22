@@ -1,31 +1,32 @@
-CC = clang
+CXX = clang++
 OS := $(shell uname)
 
-src = $(wildcard src/*.c)
-obj = $(src:.c=.o)
+src = $(wildcard src/*.cpp)
+obj = $(src:.cpp=.o)
 
-LDFLAGS = -Iinclude -Llib -llibdb181
-CFLAGS =  #-shared
+CFLAGS = -g -O0 #-shared
+LDFLAGS = 
 
 ifeq ($(OS), Linux)
 CFLAGS += #-fPIC
-
+LDFLAGS := -ldb
 default: linux
 else
+LDFLAGS = -Iinclude -Llib -llibdb181
 default: win32
 endif
 
 %.o: %.c
-	$(CC) -c $(CFLAGS) $*.c -o $*.o $(LDFLAGS)
+	$(CXX) -c -g -O0 $(CFLAGS) $*.c -o $*.o 
 
 win32: $(obj)
-	$(CC) $(CFLAGS) -o bin/libtest.dll $^ $(LDFLAGS)
+	$(CXX) $(CFLAGS) -o bin/libtest.dll $^ $(LDFLAGS)
 	
 linux: $(obj)
-	$(CC) $(CFLAGS) -o bin/liboctree.so $^ $(LDFLAGS)
+	$(CXX) $(CFLAGS) -o bin/liboctree.so $^ $(LDFLAGS)
 
 exe: $(obj)
-	$(CC) -o bin/berkeley.exe $^ $(LDFLAGS)
+	$(CXX) $(CFLAGS) -g -O0  -o bin/berkeley $^ $(LDFLAGS)
 
 clean:
 	rm -f $(obj) win32

@@ -2,14 +2,19 @@
 
 #include "db.h"
 
-typedef struct _db_ctx
-{
-    DB* database;
-    char* db_directory;
-} DB_CTX;
+int
+db_init(DB** dbpp, const char* db_directory, const char* db_name,
+        u_int32_t db_flags, DBTYPE db_type);
 
 int
-gaia_db_init(DB_CTX* context, const char* database_directory = "");
+db_close(DB* dbp);
 
 int
-gaia_db_close(DB_CTX* context);
+db_insert(DB* dbp, void* d_key, int s_key, void* d_data, int s_data);
+
+void*
+db_get(DB* dbp, void* d_key, int s_key);
+
+int
+db_delete(DB* dbp, void* d_key, int s_key);
+
