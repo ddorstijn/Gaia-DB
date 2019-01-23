@@ -18,6 +18,16 @@ int ret;                         /* Return code from call into Berkeley DB. */
 const char* db_name = "test.db"; /* The name of the database to use. */
 const char* progname = "ex_access"; /* Program name. */
 
+typedef struct _star
+{
+    u_int64_t id;           // ID extracted from dataset
+    double x;               // X position star
+    double y;               // Y position star
+    double z;               // Z position star
+    u_int32_t colour;       // Colour of the star in hex converted to int
+    u_int64_t morton_index; // Morton-code of the star in a 3d-grid
+} SStar;
+
 void
 close_db()
 {
@@ -46,7 +56,7 @@ main()
      * could direct error messages to an application-specific log file.
      */
     dbp->set_errpfx(dbp, progname);
-    dbp->set_errfile(dbp, stderr);
+    dbp->set_errfile(dbp, stdout);
 
     /*
      * Configure the database to use:
@@ -84,13 +94,13 @@ main()
     memset(&key, 0, sizeof(DBT));
     memset(&data, 0, sizeof(DBT));
 
-    int key_data = 12;
-    key.data = &key_data;
-    key.size = sizeof(int);
+    SStar star_data = { 12341, 1.2, 3.4, 5.6, 32131, 0 };
 
-    int data_data = 21;
-    data.data = &data_data;
-    data.size = sizeof(int);
+    key.data = &star_data.id;
+    key.size = sizeof(u_int64_t);
+
+    data.data = &star_data;
+    data.size = sizeof(SStar);
 
     /*
      * Add the record to the database. The DB_NOOVERWRITE flag
@@ -106,11 +116,29 @@ main()
          * Some kind of error was detected during the attempt to
          * insert the record. The err() function is printf-like.
          */
-        dbp->err(dbp, ret, "DB(%s)->put(%s, %s)", db_name, key.data, data.data);
-        if (ret != DB_KEYEXIST)
+        // dbp->err(dbp, ret, "DB(%s)->put(%s, %s)", db_name, key.data,
+        // data.data);
+        if (ret == DB_KEYEXIST) {
+            printf("Key already exsists");
+        } else {
             close_db();
+            return EXIT_FAILURE;
+        }
+    }
+
+    ret = dbp->get(dbp, NULL, &key, &data, 0);
+    if (ret != 0) {
+        /*
+         * Some kind of error was detected during the attempt to
+         * insert the record. The err() function is printf-like.
+         */
+        dbp->err(dbp, ret, "DB(%s)->put(%s, %s)", db_name, key.data, data.data);
+        close_db();
         return EXIT_FAILURE;
     }
+
+    SStar* dat = (SStar*)data.data;
+    printf("%d\n", *dat);
 
     close_db();
 }
