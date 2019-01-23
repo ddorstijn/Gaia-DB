@@ -25,8 +25,8 @@ win32: $(obj)
 linux: $(obj)
 	$(CXX) $(CFLAGS) -o bin/libgaiadb.so $^ $(LDFLAGS)
 
-exe: $(obj)
-	$(CXX) $(CFLAGS) -o bin/gaiadb.exe $^ $(LDFLAGS)
+test: $(obj)
+	$(CXX) $(CFLAGS) -o bin/gaiadb $^ $(LDFLAGS)
 
 clean:
 	rm -f $(obj) win32

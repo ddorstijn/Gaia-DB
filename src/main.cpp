@@ -10,7 +10,7 @@ main()
     db_ctx = gaia_setup_database("");
 
     // Test: insert
-    gaia_new_star(db_ctx->dbp, 21312, 1.2, 2.3, 4.5, 128, 0);
+    gaia_new_star(db_ctx->dbp, 21312, 1.2, 2.3, 4.5, 128, 10.2, 0);
 
     // Test: retrieve
     SStar* star = gaia_get_star(db_ctx->dbp, 21312);

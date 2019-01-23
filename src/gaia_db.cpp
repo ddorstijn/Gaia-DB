@@ -32,8 +32,9 @@ get_id_callback(DB* dbp, const DBT* pkey, const DBT* pdata, DBT* skey)
     dbp = NULL;
     pkey = NULL;
 
-    // ID + x + y + z + colour
-    offset = sizeof(u_int64_t) + sizeof(double) * 3 + sizeof(u_int32_t);
+    // ID + x + y + z + colour +
+    offset = sizeof(u_int64_t) + sizeof(double) * 3 + sizeof(u_int32_t) +
+             sizeof(float);
 
     if (pdata->size < offset) {
         return -1;
@@ -104,13 +105,13 @@ gaia_close_database(DB_CTX* ctx)
  */
 int
 gaia_new_star(DB* dbp, u_int64_t id, double x, double y, double z,
-              u_int32_t colour, u_int64_t morton_index)
+              u_int32_t colour, float brightness, u_int64_t morton_index)
 {
     if (morton_index == 0) {
         morton_index = id;
     }
 
-    SStar star = { id, x, y, z, colour, morton_index };
+    SStar star = { id, x, y, z, colour, brightness, morton_index };
 
     int ret;
     ret = db_insert(dbp, &(star.id), sizeof star.id, &star, sizeof star);
@@ -149,6 +150,24 @@ gaia_get_star_by_morton(DB* sdbp, u_int64_t index)
     if (star == NULL) {
         printf("ERROR: star is null");
     }
+    return star;
+}
+
+DBC*
+gaia_get_cursor(DB* dbp)
+{
+    DBC* dbcp;
+    dbcp = db_open_cursor(dbp);
+
+    return dbcp;
+}
+
+SStar*
+gaia_get_next_star(DBC* dbcp)
+{
+    void* data = db_cursor_read_next(dbcp);
+
+    SStar* star = (SStar*)data;
     return star;
 }
 

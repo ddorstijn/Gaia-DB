@@ -27,6 +27,18 @@ db_insert(DB* dbp, void* d_key, size_t s_key, void* d_data, size_t s_data);
 void*
 db_get(DB* dbp, void* d_key, int s_key);
 
+DBC*
+db_open_cursor(DB* dbp);
+
+int
+db_close_cursor(DBC* dbcp);
+
+void*
+db_cursor_read_next(DBC* dbcp);
+
+void*
+db_cursor_jump_to(DBC* dbcp, u_int64_t id);
+
 int
 db_delete(DB* dbp, void* d_key, int s_key);
 

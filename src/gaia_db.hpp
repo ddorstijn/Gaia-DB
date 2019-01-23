@@ -51,6 +51,10 @@ typedef struct _star
     u_int32_t colour;
 
     /**
+     * @brief Absolute magnitude of the star
+     */
+    float brightness;
+    /**
      * @brief Morton-code of the star in a 3d-grid.
      *
      */
@@ -92,7 +96,7 @@ gaia_close_database(DB_CTX* context);
 
 int
 gaia_new_star(DB* dbp, u_int64_t id, double x, double y, double z,
-              u_int32_t colour, u_int64_t morton_index);
+              u_int32_t colour, float brightness, u_int64_t morton_index);
 
 SStar*
 gaia_get_star(DB* dbp, u_int64_t id);

@@ -167,6 +167,71 @@ db_get(DB* dbp, void* d_key, int s_key)
     return data.data;
 }
 
+DBC*
+db_open_cursor(DB* dbp)
+{
+    DBC* dbcp;
+    dbp->cursor(dbp, NULL, &dbcp, 0);
+
+    return dbcp;
+}
+
+int
+db_close_cursor(DBC* dbcp)
+{
+    int ret = -1;
+
+    if (dbcp != NULL) {
+        ret = dbcp->close(dbcp);
+    }
+
+    return ret;
+}
+
+void*
+db_cursor_read_next(DBC* dbcp)
+{
+    DBT key, data;
+    int ret = -1;
+
+    /* Initialize our DBTs. */
+    memset(&key, 0, sizeof(DBT));
+    memset(&data, 0, sizeof(DBT));
+
+    ret = dbcp->get(dbcp, &key, &data, DB_NEXT);
+    if (ret != 0) {
+        if (ret == DB_NOTFOUND) {
+            printf("At the end of the database");
+        } else {
+            printf("Error getting next record");
+        }
+    }
+
+    return data.data;
+}
+
+void*
+db_cursor_jump_to(DBC* dbcp, u_int64_t id)
+{
+    DBT key, data;
+    int ret;
+
+    /* Initialize our DBTs. */
+    memset(&key, 0, sizeof(DBT));
+    memset(&data, 0, sizeof(DBT));
+
+    ret = dbcp->get(dbcp, &key, &data, DB_SET);
+    if (ret != 0) {
+        if (ret == DB_NOTFOUND) {
+            printf("At the end of the database");
+        } else {
+            printf("Error getting next record");
+        }
+    }
+
+    return data.data;
+}
+
 /**
  * @brief Delete a record from the database.
  *
