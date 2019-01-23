@@ -1,4 +1,4 @@
-#include "gaia_read.h"
+#include "gaia_read.hpp"
 
 #include <stdlib.h>
 #include <string.h>
@@ -68,6 +68,9 @@ gaia_new_star(DB* dbp, u_int64_t id, double x, double y, double z,
 
     STAR star = { id, x, y, z, colour, morton_index };
     int ret;
+
+    printf("%d\n", sizeof star);
+    printf("%d\n", sizeof(STAR));
 
     ret = db_insert(dbp, &star, sizeof star, &star.id, sizeof star.id);
 

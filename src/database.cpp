@@ -1,4 +1,4 @@
-#include "database.h"
+#include "database.hpp"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +38,12 @@ db_init(DB** dbpp, const char* db_directory, const char* db_name,
         return ret;
     }
 
+    // let the dbp point to the newly opened db
     *dbpp = dbp;
+
+    /* Set up error handling for this database */
+    dbp->set_errfile(dbp, stderr);
+    dbp->set_errpfx(dbp, db_name);
 
     char* db_path = concatenate_strings(db_directory, db_name);
     ret = dbp->open(dbp, NULL, db_path, NULL, db_type, db_flags, 0);
@@ -81,6 +86,10 @@ db_insert(DB* dbp, void* d_key, int s_key, void* d_data, int s_data)
     ret = dbp->put(dbp, NULL, &key, &data, DB_NOOVERWRITE);
     if (ret == DB_KEYEXIST) {
         printf("Key already exsists");
+    }
+    if (ret != 0) {
+        printf("Insert failed: \n%s", db_strerror(ret));
+        return ret;
     }
 
     return ret;
