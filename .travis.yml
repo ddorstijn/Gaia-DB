@@ -1,21 +1,12 @@
 --- 
 arch: 
-  packages: 
-    - procps-ng
-    - reflector
-    - screenfetch-git
-  repos: 
-    - "archlinuxfr=http://repo.archlinux.fr/$arch"
-  script: 
-    - "sudo screenfetch"
-    - "reflector --verbose -l 20 --sort rate -p https"
-    - "echo $CC"
-    - "touch test_file"
+  os: linux
 compiler: 
-  - gcc
-  - clang
+  - g++
+  - clang++
+install: "-sudo pacman -S db"
 language: c
 script: 
+  - "mkdir bin"
   - make
   - "make test"
-
