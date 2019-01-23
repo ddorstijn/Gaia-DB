@@ -1,0 +1,13 @@
+--- 
+arch: 
+ repos:
+  - archlinuxfr=http://repo.archlinux.fr/$arch
+compiler: 
+  - g++
+  - clang++
+install: "-sudo pacman -S db"
+language: c
+script: 
+  - "mkdir bin"
+  - make
+  - "make test"
