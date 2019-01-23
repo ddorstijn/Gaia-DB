@@ -1,0 +1,7 @@
+--- 
+language: csharp
+script: 
+  - ./build.sh
+  - ./test.sh
+  - "grep \"Test Results\" build.log"
+solution: solution-name.sln
