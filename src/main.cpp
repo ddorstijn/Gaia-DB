@@ -9,11 +9,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-DB* dbp;   /* Handle of the database to be updated. */
-DBC* dbcp; /* Cursor used for scanning over the database. */
-DBT key;   /* The key to dbp->put()/from dbcp->get(). */
-DBT data;  /* The data to dbp->put()/from dbcp->get(). */
-
 int ret;                         /* Return code from call into Berkeley DB. */
 const char* db_name = "test.db"; /* The name of the database to use. */
 const char* progname = "ex_access"; /* Program name. */
@@ -29,25 +24,23 @@ typedef struct _star
 } SStar;
 
 void
-close_db()
+db_close(DB* dbp)
 {
     (void)dbp->close(dbp, 0);
 }
 
 int
-main()
+db_init(DB** dbpp)
 {
-    //     DB_CTX* db_ctx;
-    //     db_ctx = gaia_setup_database("");
-    //     gaia_new_star(db_ctx->dbp, 21312, 1.2, 2.3, 4.5, 128, 0);
-    //     STAR* star = gaia_get_star(db_ctx->dbp, 21312);
-    //     printf("%f, %f", star->x, star->y);
+    DB* dbp;
 
     /* Create a database handle, to be configured, then opened. */
     if ((ret = db_create(&dbp, NULL, 0)) != 0) {
         fprintf(stderr, "%s: db_create: %s\n", progname, db_strerror(ret));
         return (EXIT_FAILURE);
     }
+
+    *dbpp = dbp;
 
     /*
      * Prefix any error messages with the name of this program and a ':'.
@@ -56,7 +49,7 @@ main()
      * could direct error messages to an application-specific log file.
      */
     dbp->set_errpfx(dbp, progname);
-    dbp->set_errfile(dbp, stdout);
+    dbp->set_errfile(dbp, stderr);
 
     /*
      * Configure the database to use:
@@ -65,12 +58,12 @@ main()
      */
     if ((ret = dbp->set_pagesize(dbp, 1024)) != 0) {
         dbp->err(dbp, ret, "set_pagesize");
-        close_db();
+        db_close(dbp);
         return EXIT_FAILURE;
     }
     if ((ret = dbp->set_cachesize(dbp, 0, 32 * 1024, 1)) != 0) {
         dbp->err(dbp, ret, "set_cachesize");
-        close_db();
+        db_close(dbp);
         return EXIT_FAILURE;
     }
 
@@ -82,25 +75,25 @@ main()
     if ((ret = dbp->open(dbp, NULL, db_name, NULL, DB_BTREE, DB_CREATE,
                          0664)) != 0) {
         dbp->err(dbp, ret, "%s: open", db_name);
-        close_db();
+        db_close(dbp);
         return EXIT_FAILURE;
     }
 
-    /*
-     * Insert records into the database, where the key is the user input
-     * and the data is the user input in reverse order.
-     * Zeroing the DBTs prepares them for the dbp->put() calls below.
-     */
+    return 0;
+}
+
+int
+db_insert(DB* dbp, void* d_key, size_t s_key, void* d_data, size_t s_data)
+{
+    DBT key, data;
     memset(&key, 0, sizeof(DBT));
     memset(&data, 0, sizeof(DBT));
 
-    SStar star_data = { 12341, 1.2, 3.4, 5.6, 32131, 0 };
+    key.data = d_key;
+    key.size = s_key;
 
-    key.data = &star_data.id;
-    key.size = sizeof(u_int64_t);
-
-    data.data = &star_data;
-    data.size = sizeof(SStar);
+    data.data = d_data;
+    data.size = s_data;
 
     /*
      * Add the record to the database. The DB_NOOVERWRITE flag
@@ -121,11 +114,21 @@ main()
         if (ret == DB_KEYEXIST) {
             printf("Key already exsists");
         } else {
-            close_db();
+            db_close(dbp);
             return EXIT_FAILURE;
         }
     }
+}
 
+void*
+db_get(DB* dbp, void* d_id, size_t s_id)
+{
+    DBT key, data;
+    memset(&key, 0, sizeof(DBT));
+    memset(&data, 0, sizeof(DBT));
+
+    key.data = d_id;
+    key.size = s_id;
     ret = dbp->get(dbp, NULL, &key, &data, 0);
     if (ret != 0) {
         /*
@@ -133,12 +136,42 @@ main()
          * insert the record. The err() function is printf-like.
          */
         dbp->err(dbp, ret, "DB(%s)->put(%s, %s)", db_name, key.data, data.data);
-        close_db();
-        return EXIT_FAILURE;
+        db_close(dbp);
+        return NULL;
     }
 
-    SStar* dat = (SStar*)data.data;
-    printf("%d\n", *dat);
+    return data.data;
+}
 
-    close_db();
+int
+main()
+{
+    //     DB_CTX* db_ctx;
+    //     db_ctx = gaia_setup_database("");
+    //     gaia_new_star(db_ctx->dbp, 21312, 1.2, 2.3, 4.5, 128, 0);
+    //     STAR* star = gaia_get_star(db_ctx->dbp, 21312);
+    //     printf("%f, %f", star->x, star->y);
+
+    /*
+     * Insert records into the database, where the key is the user input
+     * and the data is the user input in reverse order.
+     * Zeroing the DBTs prepares them for the dbp->put() calls below.
+     */
+
+    DB* dbp;   /* Handle of the database to be updated. */
+    DBC* dbcp; /* Cursor used for scanning over the database. */
+
+    db_init(&dbp);
+
+    SStar star_data = { 1212, 1.2, 3.4, 5.6, 32131, 0 };
+    db_insert(dbp, &(star_data.id), sizeof(u_int64_t), &star_data,
+              sizeof(SStar));
+
+    u_int64_t id = 1212;
+    void* data = db_get(dbp, &id, sizeof(u_int64_t));
+
+    SStar* dat = (SStar*)data;
+    printf("%f\n", dat->x);
+
+    db_close(dbp);
 }
