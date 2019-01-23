@@ -14,20 +14,73 @@
 
 #include "database.hpp"
 
+/**
+ * @brief Star struct which holds basic data of a star.
+ *
+ */
 typedef struct _star
 {
-    u_int64_t id;           // ID extracted from dataset
-    double x;               // X position star
-    double y;               // Y position star
-    double z;               // Z position star
-    u_int32_t colour;       // Colour of the star in hex converted to int
-    u_int64_t morton_index; // Morton-code of the star in a 3d-grid
+    /**
+     * @brief ID extracted from dataset.
+     *
+     */
+    u_int64_t id;
+
+    /**
+     * @brief X position star.
+     *
+     */
+    double x;
+
+    /**
+     * @brief Y position star.
+     *
+     */
+    double y;
+
+    /**
+     * @brief Z position star.
+     *
+     */
+    double z;
+
+    /**
+     * @brief Colour of the star in hex converted to int.
+     *
+     */
+    u_int32_t colour;
+
+    /**
+     * @brief Morton-code of the star in a 3d-grid.
+     *
+     */
+    u_int64_t morton_index;
 } SStar;
 
+/**
+ * @brief A small struct which holds pointers to databases and the directory
+ *        they are in.
+ *
+ */
 typedef struct _db_ctx
 {
+    /**
+     * @brief Handle to the primary database.
+     *
+     */
     DB* dbp;
+
+    /**
+     * @brief Handle to the secondary database that holds indices for the
+     *        morton codes.
+     *
+     */
     DB* sdbp;
+
+    /**
+     * @brief Home directory the databases are located in.
+     *
+     */
     char* db_dir;
 } DB_CTX;
 

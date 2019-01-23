@@ -1,0 +1,221 @@
+\hypertarget{gaia__db_8cpp}{}\section{src/gaia\+\_\+db.cpp File Reference}
+\label{gaia__db_8cpp}\index{src/gaia\+\_\+db.\+cpp@{src/gaia\+\_\+db.\+cpp}}
+
+
+Implementation of the Berkeley\+DB wrapper.  
+
+
+{\ttfamily \#include \char`\"{}gaia\+\_\+db.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{gaia__db_8cpp_a44e25f43b690896c5c4fa81fbc45d945}{get\+\_\+id\+\_\+callback}} (DB $\ast$dbp, const D\+BT $\ast$pkey, const D\+BT $\ast$pdata, D\+BT $\ast$skey)
+\begin{DoxyCompactList}\small\item\em Callback used by the db for creating indices for the morton codes. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaia__db_8hpp_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}} $\ast$ \mbox{\hyperlink{gaia__db_8cpp_a1fc05df2dfbdc4b7485ee4f7dec123bd}{gaia\+\_\+setup\+\_\+database}} (const char $\ast$directory)
+\begin{DoxyCompactList}\small\item\em Setup the databases for G\+A\+IA. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{gaia__db_8cpp_a1f3af2e6142cee790fe1d91c47213c84}{gaia\+\_\+close\+\_\+database}} (\mbox{\hyperlink{gaia__db_8hpp_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}} $\ast$ctx)
+\begin{DoxyCompactList}\small\item\em Close the databases. Writes the db\textquotesingle{}s to a file. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{gaia__db_8cpp_a1cb8539d2976cdc69181bccf098d9703}{gaia\+\_\+new\+\_\+star}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id, double x, double y, double z, u\+\_\+int32\+\_\+t colour, u\+\_\+int64\+\_\+t morton\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Insert new star in the database. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaia__db_8hpp_af49b70ce88035047e479faabf6e1593f}{S\+Star}} $\ast$ \mbox{\hyperlink{gaia__db_8cpp_ac0b6ef3a6718a258a142aeb0382fae62}{gaia\+\_\+get\+\_\+star}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Get a star from the db based on the ID of the star. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaia__db_8hpp_af49b70ce88035047e479faabf6e1593f}{S\+Star}} $\ast$ \mbox{\hyperlink{gaia__db_8cpp_acf5aafb5995d38f3f3cf7b87702f94a5}{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}} (DB $\ast$sdbp, u\+\_\+int64\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Get the star based on it\textquotesingle{}s morton code. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{gaia__db_8cpp_aa607ca1be0f3756cd58d93e7681607ee}{gaia\+\_\+delete\+\_\+star}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Search and remove a star from the db. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{gaia__db_8cpp_a39ba50c931a426c82c882ab6660176f5}{gaia\+\_\+update\+\_\+star\+\_\+morton}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id, u\+\_\+int64\+\_\+t morton\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Update the morton code of the star. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Implementation of the Berkeley\+DB wrapper. 
+
+\begin{DoxyAuthor}{Author}
+Danny Dorstijn 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+8 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/01-\/23
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{gaia__db_8cpp_a1f3af2e6142cee790fe1d91c47213c84}\label{gaia__db_8cpp_a1f3af2e6142cee790fe1d91c47213c84}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!gaia\+\_\+close\+\_\+database@{gaia\+\_\+close\+\_\+database}}
+\index{gaia\+\_\+close\+\_\+database@{gaia\+\_\+close\+\_\+database}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{gaia\+\_\+close\+\_\+database()}{gaia\_close\_database()}}
+{\footnotesize\ttfamily int gaia\+\_\+close\+\_\+database (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaia__db_8hpp_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Close the databases. Writes the db\textquotesingle{}s to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & -\/ The context with both the database handles \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Returns err code or 0 if all was fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8cpp_aa607ca1be0f3756cd58d93e7681607ee}\label{gaia__db_8cpp_aa607ca1be0f3756cd58d93e7681607ee}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!gaia\+\_\+delete\+\_\+star@{gaia\+\_\+delete\+\_\+star}}
+\index{gaia\+\_\+delete\+\_\+star@{gaia\+\_\+delete\+\_\+star}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{gaia\+\_\+delete\+\_\+star()}{gaia\_delete\_star()}}
+{\footnotesize\ttfamily int gaia\+\_\+delete\+\_\+star (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Search and remove a star from the db. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for the primary database \\
+\hline
+{\em id} & -\/ The id of the star \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8cpp_ac0b6ef3a6718a258a142aeb0382fae62}\label{gaia__db_8cpp_ac0b6ef3a6718a258a142aeb0382fae62}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!gaia\+\_\+get\+\_\+star@{gaia\+\_\+get\+\_\+star}}
+\index{gaia\+\_\+get\+\_\+star@{gaia\+\_\+get\+\_\+star}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{gaia\+\_\+get\+\_\+star()}{gaia\_get\_star()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaia__db_8hpp_af49b70ce88035047e479faabf6e1593f}{S\+Star}}$\ast$ gaia\+\_\+get\+\_\+star (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Get a star from the db based on the ID of the star. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for the primary database \\
+\hline
+{\em id} & -\/ ID of the star you are looking for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+Star$\ast$ -\/ Star object with all the data corresponding to the id given 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8cpp_acf5aafb5995d38f3f3cf7b87702f94a5}\label{gaia__db_8cpp_acf5aafb5995d38f3f3cf7b87702f94a5}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton@{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}}
+\index{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton@{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton()}{gaia\_get\_star\_by\_morton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaia__db_8hpp_af49b70ce88035047e479faabf6e1593f}{S\+Star}}$\ast$ gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton (\begin{DoxyParamCaption}\item[{DB $\ast$}]{sdbp,  }\item[{u\+\_\+int64\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Get the star based on it\textquotesingle{}s morton code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sdbp} & -\/ Handle for the secondary database with morton code indices \\
+\hline
+{\em index} & -\/ The morton code index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+Star$\ast$ -\/ The star data corresponding to the index given 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8cpp_a1cb8539d2976cdc69181bccf098d9703}\label{gaia__db_8cpp_a1cb8539d2976cdc69181bccf098d9703}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!gaia\+\_\+new\+\_\+star@{gaia\+\_\+new\+\_\+star}}
+\index{gaia\+\_\+new\+\_\+star@{gaia\+\_\+new\+\_\+star}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{gaia\+\_\+new\+\_\+star()}{gaia\_new\_star()}}
+{\footnotesize\ttfamily int gaia\+\_\+new\+\_\+star (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id,  }\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z,  }\item[{u\+\_\+int32\+\_\+t}]{colour,  }\item[{u\+\_\+int64\+\_\+t}]{morton\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Insert new star in the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for the primary db \\
+\hline
+{\em id} & -\/ ID of the star extracted from the uuid in the gaia dataset \\
+\hline
+{\em x} & -\/ X position of the star \\
+\hline
+{\em y} & -\/ Y position of the star \\
+\hline
+{\em z} & -\/ Z position of the star \\
+\hline
+{\em colour} & -\/ The colour of the star \\
+\hline
+{\em morton\+\_\+index} & -\/ The morton index of the star. Leave 0 if unsure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8cpp_a1fc05df2dfbdc4b7485ee4f7dec123bd}\label{gaia__db_8cpp_a1fc05df2dfbdc4b7485ee4f7dec123bd}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!gaia\+\_\+setup\+\_\+database@{gaia\+\_\+setup\+\_\+database}}
+\index{gaia\+\_\+setup\+\_\+database@{gaia\+\_\+setup\+\_\+database}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{gaia\+\_\+setup\+\_\+database()}{gaia\_setup\_database()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaia__db_8hpp_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}}$\ast$ gaia\+\_\+setup\+\_\+database (\begin{DoxyParamCaption}\item[{const char $\ast$}]{directory }\end{DoxyParamCaption})}
+
+
+
+Setup the databases for G\+A\+IA. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em directory} & -\/ The base directory to put the databases in \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+B\+\_\+\+C\+T\+X$\ast$ -\/ A helper to manage the databases 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8cpp_a39ba50c931a426c82c882ab6660176f5}\label{gaia__db_8cpp_a39ba50c931a426c82c882ab6660176f5}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!gaia\+\_\+update\+\_\+star\+\_\+morton@{gaia\+\_\+update\+\_\+star\+\_\+morton}}
+\index{gaia\+\_\+update\+\_\+star\+\_\+morton@{gaia\+\_\+update\+\_\+star\+\_\+morton}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{gaia\+\_\+update\+\_\+star\+\_\+morton()}{gaia\_update\_star\_morton()}}
+{\footnotesize\ttfamily int gaia\+\_\+update\+\_\+star\+\_\+morton (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id,  }\item[{u\+\_\+int64\+\_\+t}]{morton\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Update the morton code of the star. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle of the primary database \\
+\hline
+{\em id} & -\/ The id of the star \\
+\hline
+{\em morton\+\_\+index} & -\/ The new morton index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8cpp_a44e25f43b690896c5c4fa81fbc45d945}\label{gaia__db_8cpp_a44e25f43b690896c5c4fa81fbc45d945}} 
+\index{gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}!get\+\_\+id\+\_\+callback@{get\+\_\+id\+\_\+callback}}
+\index{get\+\_\+id\+\_\+callback@{get\+\_\+id\+\_\+callback}!gaia\+\_\+db.\+cpp@{gaia\+\_\+db.\+cpp}}
+\subsubsection{\texorpdfstring{get\+\_\+id\+\_\+callback()}{get\_id\_callback()}}
+{\footnotesize\ttfamily int get\+\_\+id\+\_\+callback (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{const D\+BT $\ast$}]{pkey,  }\item[{const D\+BT $\ast$}]{pdata,  }\item[{D\+BT $\ast$}]{skey }\end{DoxyParamCaption})}
+
+
+
+Callback used by the db for creating indices for the morton codes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for dbp (unused) \\
+\hline
+{\em pkey} & -\/ Handle for the key of the main db (unused) \\
+\hline
+{\em pdata} & -\/ Handle for the data of the main db. Used to extract morton idx \\
+\hline
+{\em skey} & -\/ Handle for the secondary key. This is what we put in the db \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Returns 0 to signal all is fine 
+\end{DoxyReturn}

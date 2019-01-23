@@ -1,0 +1,155 @@
+\hypertarget{database_8hpp}{}\section{src/database.hpp File Reference}
+\label{database_8hpp}\index{src/database.\+hpp@{src/database.\+hpp}}
+
+
+Wrapper for the Berkeley\+DB.  
+
+
+{\ttfamily \#include \char`\"{}db.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{database_8hpp_af6a27954c8df91580da685c6b63b57a0}{db\+\_\+init}} (DB $\ast$$\ast$dbpp, const char $\ast$db\+\_\+directory, const char $\ast$db\+\_\+name, u\+\_\+int32\+\_\+t db\+\_\+flags, D\+B\+T\+Y\+PE db\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Initialize a database. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{database_8hpp_a79a820369077edd8851227043e50df13}{db\+\_\+close}} (DB $\ast$dbp)
+\begin{DoxyCompactList}\small\item\em Close the database. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{database_8hpp_a08e70af9ea3c11ceb9141d2ddcba39f0}{db\+\_\+insert}} (DB $\ast$dbp, void $\ast$d\+\_\+key, size\+\_\+t s\+\_\+key, void $\ast$d\+\_\+data, size\+\_\+t s\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Insert a value in the database. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{database_8hpp_a6adf5e73a2401b3bf966a3a1aa97a773}{db\+\_\+get}} (DB $\ast$dbp, void $\ast$d\+\_\+key, int s\+\_\+key)
+\begin{DoxyCompactList}\small\item\em Get a value from the database. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{database_8hpp_ab34cb89efb8e1bf15ec1fc83bfa64b00}{db\+\_\+delete}} (DB $\ast$dbp, void $\ast$d\+\_\+key, int s\+\_\+key)
+\begin{DoxyCompactList}\small\item\em Delete a record from the database. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Wrapper for the Berkeley\+DB. 
+
+\begin{DoxyAuthor}{Author}
+Danny Dorstijn 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+8 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/01-\/23
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{database_8hpp_a79a820369077edd8851227043e50df13}\label{database_8hpp_a79a820369077edd8851227043e50df13}} 
+\index{database.\+hpp@{database.\+hpp}!db\+\_\+close@{db\+\_\+close}}
+\index{db\+\_\+close@{db\+\_\+close}!database.\+hpp@{database.\+hpp}}
+\subsubsection{\texorpdfstring{db\+\_\+close()}{db\_close()}}
+{\footnotesize\ttfamily int db\+\_\+close (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp }\end{DoxyParamCaption})}
+
+
+
+Close the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the db to be closed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database_8hpp_ab34cb89efb8e1bf15ec1fc83bfa64b00}\label{database_8hpp_ab34cb89efb8e1bf15ec1fc83bfa64b00}} 
+\index{database.\+hpp@{database.\+hpp}!db\+\_\+delete@{db\+\_\+delete}}
+\index{db\+\_\+delete@{db\+\_\+delete}!database.\+hpp@{database.\+hpp}}
+\subsubsection{\texorpdfstring{db\+\_\+delete()}{db\_delete()}}
+{\footnotesize\ttfamily int db\+\_\+delete (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{void $\ast$}]{d\+\_\+key,  }\item[{int}]{s\+\_\+key }\end{DoxyParamCaption})}
+
+
+
+Delete a record from the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for the database \\
+\hline
+{\em d\+\_\+key} & -\/ Pointer to the value of the key \\
+\hline
+{\em s\+\_\+key} & -\/ Size of the value (using sizeof) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database_8hpp_a6adf5e73a2401b3bf966a3a1aa97a773}\label{database_8hpp_a6adf5e73a2401b3bf966a3a1aa97a773}} 
+\index{database.\+hpp@{database.\+hpp}!db\+\_\+get@{db\+\_\+get}}
+\index{db\+\_\+get@{db\+\_\+get}!database.\+hpp@{database.\+hpp}}
+\subsubsection{\texorpdfstring{db\+\_\+get()}{db\_get()}}
+{\footnotesize\ttfamily void$\ast$ db\+\_\+get (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{void $\ast$}]{d\+\_\+key,  }\item[{int}]{s\+\_\+key }\end{DoxyParamCaption})}
+
+
+
+Get a value from the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the database \\
+\hline
+{\em d\+\_\+key} & -\/ Pointer to the value of the key \\
+\hline
+{\em s\+\_\+key} & -\/ Size of the value (using sizeof) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void$\ast$ -\/ The data object retrieved from the db 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database_8hpp_af6a27954c8df91580da685c6b63b57a0}\label{database_8hpp_af6a27954c8df91580da685c6b63b57a0}} 
+\index{database.\+hpp@{database.\+hpp}!db\+\_\+init@{db\+\_\+init}}
+\index{db\+\_\+init@{db\+\_\+init}!database.\+hpp@{database.\+hpp}}
+\subsubsection{\texorpdfstring{db\+\_\+init()}{db\_init()}}
+{\footnotesize\ttfamily int db\+\_\+init (\begin{DoxyParamCaption}\item[{DB $\ast$$\ast$}]{dbpp,  }\item[{const char $\ast$}]{db\+\_\+directory,  }\item[{const char $\ast$}]{db\+\_\+name,  }\item[{u\+\_\+int32\+\_\+t}]{db\+\_\+flags,  }\item[{D\+B\+T\+Y\+PE}]{db\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Initialize a database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbpp} & -\/ A pointer to a handle for the new db \\
+\hline
+{\em db\+\_\+directory} & -\/ The directory where to place the db \\
+\hline
+{\em db\+\_\+name} & -\/ Name of the database \\
+\hline
+{\em db\+\_\+flags} & -\/ Flags for creating a db \\
+\hline
+{\em db\+\_\+type} & -\/ Type of the db (B\+Tree, Heap, Queue, etc.) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database_8hpp_a08e70af9ea3c11ceb9141d2ddcba39f0}\label{database_8hpp_a08e70af9ea3c11ceb9141d2ddcba39f0}} 
+\index{database.\+hpp@{database.\+hpp}!db\+\_\+insert@{db\+\_\+insert}}
+\index{db\+\_\+insert@{db\+\_\+insert}!database.\+hpp@{database.\+hpp}}
+\subsubsection{\texorpdfstring{db\+\_\+insert()}{db\_insert()}}
+{\footnotesize\ttfamily int db\+\_\+insert (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{void $\ast$}]{d\+\_\+key,  }\item[{size\+\_\+t}]{s\+\_\+key,  }\item[{void $\ast$}]{d\+\_\+data,  }\item[{size\+\_\+t}]{s\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Insert a value in the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the db \\
+\hline
+{\em d\+\_\+key} & -\/ Pointer to the data of the key \\
+\hline
+{\em s\+\_\+key} & -\/ Size of the key (using sizeof) \\
+\hline
+{\em d\+\_\+data} & -\/ Pointer to the data \\
+\hline
+{\em s\+\_\+data} & -\/ Sizeof the corresponding data (using sizeof) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
