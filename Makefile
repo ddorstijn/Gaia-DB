@@ -4,7 +4,7 @@ OS := $(shell uname)
 src = $(wildcard src/*.cpp)
 obj = $(src:.cpp=.o)
 
-CFLAGS = -g -O0
+CFLAGS = -O3 
 LDFLAGS = 
 
 ifeq ($(OS), Linux)
@@ -19,14 +19,14 @@ endif
 %.o: %.cpp
 	$(CXX) -c $(CFLAGS) $*.cpp -o $*.o 
 
-# win32: $(obj)
-# 	$(CXX) $(CFLAGS) -o bin/libtest.dll $^ $(LDFLAGS)
+win32: $(obj)
+	$(CXX) $(CFLAGS) -o bin/libgaiadb.dll $^ $(LDFLAGS)
 	
-# linux: $(obj)
-# 	$(CXX) $(CFLAGS) -o bin/liboctree.so $^ $(LDFLAGS)
+linux: $(obj)
+	$(CXX) $(CFLAGS) -o bin/libgaiadb.so $^ $(LDFLAGS)
 
 exe: $(obj)
-	$(CXX) $(CFLAGS) -o bin/berkeley.exe $^ $(LDFLAGS)
+	$(CXX) $(CFLAGS) -o bin/gaiadb.exe $^ $(LDFLAGS)
 
 clean:
 	rm -f $(obj) win32
