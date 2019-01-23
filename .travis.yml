@@ -5,3 +5,4 @@ script:
   - ./test.sh
   - "grep \"Test Results\" build.log"
 solution: solution-name.sln
+
