@@ -26,22 +26,12 @@
 int
 get_id_callback(DB* dbp, const DBT* pkey, const DBT* pdata, DBT* skey)
 {
-    u_int offset;
-
     // We don't need the dbp or pkey
     dbp = NULL;
     pkey = NULL;
 
-    // ID + x + y + z + colour +
-    offset = sizeof(u_int64_t) + sizeof(double) * 3 + sizeof(u_int32_t) +
-             sizeof(float);
-
-    if (pdata->size < offset) {
-        return -1;
-    }
-
     memset(skey, 0, sizeof *pkey);
-    skey->data = (u_int64_t*)pdata->data + offset;
+    skey->data = (u_int64_t*)pdata->data;
     skey->size = sizeof(u_int64_t);
 
     return 0;
@@ -57,8 +47,8 @@ DB_CTX*
 gaia_setup_database(const char* directory)
 {
     DB_CTX* ctx = (DB_CTX*)malloc(sizeof *ctx);
-    db_init(&ctx->dbp, directory, "stars.db", DB_CREATE, DB_BTREE);
-    db_init(&ctx->sdbp, directory, "morton_index.sdb", DB_CREATE, DB_BTREE);
+    db_init(&ctx->dbp, directory, "stars.db", DB_CREATE, DB_HASH);
+    db_init(&ctx->sdbp, directory, "morton_index.sdb", DB_CREATE, DB_HASH);
 
     ctx->dbp->associate(ctx->dbp, NULL, ctx->sdbp, get_id_callback, 0);
 
@@ -111,7 +101,7 @@ gaia_new_star(DB* dbp, u_int64_t id, double x, double y, double z,
         morton_index = id;
     }
 
-    SStar star = { id, x, y, z, colour, brightness, morton_index };
+    SStar star = { morton_index, id, x, y, z, colour, brightness };
 
     int ret;
     ret = db_insert(dbp, &(star.id), sizeof star.id, &star, sizeof star);
@@ -169,6 +159,25 @@ gaia_get_next_star(DBC* dbcp)
 
     SStar* star = (SStar*)data;
     return star;
+}
+
+SStar*
+gaia_goto_star(DBC* dbcp, u_int64_t id)
+{
+    SStar* star;
+    void* data = db_cursor_jump_to(dbcp, id);
+    star = (SStar*)data;
+
+    return star;
+}
+
+int
+gaia_close_cursor(DBC* dbcp)
+{
+    int ret;
+    ret = db_close_cursor(dbcp);
+
+    return ret;
 }
 
 /**

@@ -21,6 +21,12 @@
 typedef struct _star
 {
     /**
+     * @brief Morton-code of the star in a 3d-grid.
+     *
+     */
+    u_int64_t morton_index;
+
+    /**
      * @brief ID extracted from dataset.
      *
      */
@@ -54,11 +60,6 @@ typedef struct _star
      * @brief Absolute magnitude of the star
      */
     float brightness;
-    /**
-     * @brief Morton-code of the star in a 3d-grid.
-     *
-     */
-    u_int64_t morton_index;
 } SStar;
 
 /**
@@ -109,5 +110,18 @@ gaia_delete_star(DB* dbp, u_int64_t id);
 
 int
 gaia_update_star_morton(DB* dbp, u_int64_t id, u_int64_t morton_index);
+
+// Cursor
+DBC*
+gaia_get_cursor(DB* dbp);
+
+SStar*
+gaia_get_next_star(DBC* dbcp);
+
+SStar*
+gaia_goto_star(DBC* dbcp, u_int64_t id);
+
+int
+gaia_close_cursor(DBC* dbcp);
 
 #endif // !GAIA_DB_H
