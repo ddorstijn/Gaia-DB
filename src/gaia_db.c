@@ -9,8 +9,9 @@
  *
  */
 
-#include "gaia_db.hpp"
+#include "gaia_db.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -48,8 +49,12 @@ gaia_setup_database(const char* directory)
 {
     DB_CTX* ctx = (DB_CTX*)malloc(sizeof *ctx);
     ctx->db_dir = directory;
-    db_init(&ctx->dbp, directory, "stars.db", DB_CREATE, DB_HASH);
-    db_init(&ctx->sdbp, directory, "morton_index.sdb", DB_CREATE, DB_HASH);
+
+    FILE* stars_log = fopen("stars.log", "a");
+
+    db_init(&ctx->dbp, directory, "stars.db", stars_log, DB_CREATE, DB_HASH);
+    db_init(&ctx->sdbp, directory, "morton_index.sdb", stars_log, DB_CREATE,
+            DB_HASH);
 
     ctx->dbp->associate(ctx->dbp, NULL, ctx->sdbp, get_id_callback, 0);
 

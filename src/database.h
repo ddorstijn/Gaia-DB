@@ -16,7 +16,7 @@
 
 int
 db_init(DB** dbpp, const char* db_directory, const char* db_name,
-        u_int32_t db_flags, DBTYPE db_type);
+        FILE* log_file, u_int32_t db_flags, DBTYPE db_type);
 
 int
 db_close(DB* dbp);

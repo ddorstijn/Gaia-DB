@@ -1,4 +1,4 @@
-#include "../gaia_db.hpp"
+#include "../gaia_db.h"
 
 #include "assert.h"
 

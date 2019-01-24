@@ -12,13 +12,13 @@
 #ifndef GAIA_DB_H
 #define GAIA_DB_H
 
-#include "database.hpp"
+#include "database.h"
 
-#ifdef BUILD_GAIADB_DLL
+#ifdef BUILDING_GAIADB_DLL
 #define GAIADB_DLL __declspec(dllexport)
 #else
 #define GAIADB_DLL
-#endif
+#endif // BUILDING_GAIADB_DLL
 
 /**
  * @brief Star struct which holds basic data of a star.

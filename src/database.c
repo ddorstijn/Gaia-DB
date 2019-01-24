@@ -9,7 +9,7 @@
  *
  */
 
-#include "database.hpp"
+#include "database.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,6 +51,14 @@ make_path(const char* str1, const char* str2)
     return ret;
 }
 
+void
+log_error(DB* dbp, int ret)
+{
+    FILE* log_file;
+    dbp->get_errfile(dbp, &log_file);
+    fprintf(log_file, "%s\n", db_strerror(ret));
+}
+
 /**
  * @brief Initialize a database.
  *
@@ -63,7 +71,7 @@ make_path(const char* str1, const char* str2)
  */
 int
 db_init(DB** dbpp, const char* db_directory, const char* db_name,
-        u_int32_t db_flags, DBTYPE db_type)
+        FILE* log_file, u_int32_t db_flags, DBTYPE db_type)
 {
     // Return value for db operations
     int ret;
@@ -81,7 +89,7 @@ db_init(DB** dbpp, const char* db_directory, const char* db_name,
     *dbpp = dbp;
 
     /* Set up error handling for this database */
-    dbp->set_errfile(dbp, stderr);
+    dbp->set_errfile(dbp, log_file);
     dbp->set_errpfx(dbp, db_name);
 
     // Open or create the database
@@ -144,7 +152,8 @@ db_insert(DB* dbp, void* d_key, size_t s_key, void* d_data, size_t s_data)
         printf("Key already exsists");
     }
     if (ret != 0) {
-        printf("Insert failed: \n%s", db_strerror(ret));
+        // printf("Insert failed: \n%s", db_strerror(ret));
+        log_error(dbp, ret);
         return ret;
     }
 
@@ -162,6 +171,7 @@ db_insert(DB* dbp, void* d_key, size_t s_key, void* d_data, size_t s_data)
 void*
 db_get(DB* dbp, void* d_key, int s_key)
 {
+    int ret;
     DBT key, data;
 
     // Make sure DBT's are empty
@@ -171,7 +181,10 @@ db_get(DB* dbp, void* d_key, int s_key)
     key.data = d_key;
     key.size = s_key;
 
-    dbp->get(dbp, NULL, &key, &data, 0);
+    ret = dbp->get(dbp, NULL, &key, &data, 0);
+    if (ret != 0) {
+        log_error(dbp, ret);
+    }
 
     return data.data;
 }
@@ -179,8 +192,13 @@ db_get(DB* dbp, void* d_key, int s_key)
 DBC*
 db_open_cursor(DB* dbp)
 {
+    int ret;
+
     DBC* dbcp;
-    dbp->cursor(dbp, NULL, &dbcp, 0);
+    ret = dbp->cursor(dbp, NULL, &dbcp, 0);
+    if (ret != 0) {
+        log_error(dbp, ret);
+    }
 
     return dbcp;
 }

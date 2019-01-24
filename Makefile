@@ -1,11 +1,11 @@
-CXX = g++
+CC = gcc
 OS := $(shell uname)
 
-src = $(wildcard src/*.cpp)
-obj = $(src:.cpp=.o)
+src = $(wildcard src/*.c)
+obj = $(src:.c=.o)
 
-test_src = $(wildcard src/test/*.cpp)
-test_obj = $(test_src:.cpp=.o)
+test_src = $(wildcard src/test/*.c)
+test_obj = $(test_src:.c=.o)
 
 DEBUG ?= 0
 
@@ -27,21 +27,21 @@ LDFLAGS += -llibdb181
 default: win32
 endif
 
-%.o: %.cpp
-	$(CXX) -c $(CFLAGS) $*.cpp -o $*.o 
+%.o: %.c
+	$(CC) -c $(CFLAGS) $*.c -o $*.o 
 
 win32: CFLAGS += -shared -DBUILD_GAIADB_DLL
 win32: $(obj)
-	$(CXX) $(CFLAGS) -o bin/libgaiadb.dll $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o bin/libgaiadb.dll $^ $(LDFLAGS)
 
 linux: CFLAGS += -shared -fPIC
 linux: $(obj)
-	$(CXX) $(CFLAGS) -o bin/libgaiadb.so $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o bin/libgaiadb.so $^ $(LDFLAGS)
 
 test: $(obj) $(test_obj)
-	$(CXX) $(CFLAGS) -o bin/gaiadb $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o bin/gaiadb $^ $(LDFLAGS)
 
 clean:
-	rm -f $(obj) $(test_obj) test
+	rm -f $(obj) $(test_obj) 
 
 .PHONY: default linux win32 test clean
