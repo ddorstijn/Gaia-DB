@@ -1,0 +1,166 @@
+\hypertarget{database__common_8h}{}\section{src/database\+\_\+common.h File Reference}
+\label{database__common_8h}\index{src/database\+\_\+common.\+h@{src/database\+\_\+common.\+h}}
+
+
+Helper functions for database interaction.  
+
+
+{\ttfamily \#include \char`\"{}db.\+h\char`\"{}}\newline
+Include dependency graph for database\+\_\+common.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{database__common_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{database__common_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{database__common_8h_a699edc632377de02bf704bd095f2ddca}{log\+\_\+error}} (DB $\ast$dbp, int ret)
+\begin{DoxyCompactList}\small\item\em Small helper function for logging errors in the logfile. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{database__common_8h_a81b5fc7e4d1b8bf3aff6d8bbeb4e9795}{db\+\_\+init}} (DB $\ast$$\ast$dbpp, const char $\ast$db\+\_\+directory, const char $\ast$db\+\_\+name, F\+I\+LE $\ast$log\+\_\+file, u\+\_\+int32\+\_\+t db\+\_\+flags, D\+B\+T\+Y\+PE db\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Initialize a database. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{database__common_8h_a79a820369077edd8851227043e50df13}{db\+\_\+close}} (DB $\ast$dbp)
+\begin{DoxyCompactList}\small\item\em Close the database. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{database__common_8h_a08e70af9ea3c11ceb9141d2ddcba39f0}{db\+\_\+insert}} (DB $\ast$dbp, void $\ast$d\+\_\+key, size\+\_\+t s\+\_\+key, void $\ast$d\+\_\+data, size\+\_\+t s\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Insert a value in the database. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{database__common_8h_a6adf5e73a2401b3bf966a3a1aa97a773}{db\+\_\+get}} (DB $\ast$dbp, void $\ast$d\+\_\+key, int s\+\_\+key)
+\begin{DoxyCompactList}\small\item\em Get an item from the database. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Helper functions for database interaction. 
+
+\begin{DoxyAuthor}{Author}
+Danny Dorstijn 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+9 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/01-\/23
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{database__common_8h_a79a820369077edd8851227043e50df13}\label{database__common_8h_a79a820369077edd8851227043e50df13}} 
+\index{database\+\_\+common.\+h@{database\+\_\+common.\+h}!db\+\_\+close@{db\+\_\+close}}
+\index{db\+\_\+close@{db\+\_\+close}!database\+\_\+common.\+h@{database\+\_\+common.\+h}}
+\subsubsection{\texorpdfstring{db\+\_\+close()}{db\_close()}}
+{\footnotesize\ttfamily int db\+\_\+close (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp }\end{DoxyParamCaption})}
+
+
+
+Close the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the db to be closed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database__common_8h_a6adf5e73a2401b3bf966a3a1aa97a773}\label{database__common_8h_a6adf5e73a2401b3bf966a3a1aa97a773}} 
+\index{database\+\_\+common.\+h@{database\+\_\+common.\+h}!db\+\_\+get@{db\+\_\+get}}
+\index{db\+\_\+get@{db\+\_\+get}!database\+\_\+common.\+h@{database\+\_\+common.\+h}}
+\subsubsection{\texorpdfstring{db\+\_\+get()}{db\_get()}}
+{\footnotesize\ttfamily void$\ast$ db\+\_\+get (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{void $\ast$}]{d\+\_\+key,  }\item[{int}]{s\+\_\+key }\end{DoxyParamCaption})}
+
+
+
+Get an item from the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the database \\
+\hline
+{\em d\+\_\+key} & -\/ Pointer to the key \\
+\hline
+{\em s\+\_\+key} & -\/ Size of the key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void$\ast$ -\/ Data of the record 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database__common_8h_a81b5fc7e4d1b8bf3aff6d8bbeb4e9795}\label{database__common_8h_a81b5fc7e4d1b8bf3aff6d8bbeb4e9795}} 
+\index{database\+\_\+common.\+h@{database\+\_\+common.\+h}!db\+\_\+init@{db\+\_\+init}}
+\index{db\+\_\+init@{db\+\_\+init}!database\+\_\+common.\+h@{database\+\_\+common.\+h}}
+\subsubsection{\texorpdfstring{db\+\_\+init()}{db\_init()}}
+{\footnotesize\ttfamily int db\+\_\+init (\begin{DoxyParamCaption}\item[{DB $\ast$$\ast$}]{dbpp,  }\item[{const char $\ast$}]{db\+\_\+directory,  }\item[{const char $\ast$}]{db\+\_\+name,  }\item[{F\+I\+LE $\ast$}]{log\+\_\+file,  }\item[{u\+\_\+int32\+\_\+t}]{db\+\_\+flags,  }\item[{D\+B\+T\+Y\+PE}]{db\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Initialize a database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbpp} & -\/ A pointer to a handle for the new db \\
+\hline
+{\em db\+\_\+directory} & -\/ The directory where to place the db \\
+\hline
+{\em db\+\_\+name} & -\/ Name of the database \\
+\hline
+{\em log\+\_\+file} & -\/ Log file to print all errors in \\
+\hline
+{\em db\+\_\+flags} & -\/ Flags for creating a db \\
+\hline
+{\em db\+\_\+type} & -\/ Type of the db (B\+Tree, Heap, Queue, etc.) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database__common_8h_a08e70af9ea3c11ceb9141d2ddcba39f0}\label{database__common_8h_a08e70af9ea3c11ceb9141d2ddcba39f0}} 
+\index{database\+\_\+common.\+h@{database\+\_\+common.\+h}!db\+\_\+insert@{db\+\_\+insert}}
+\index{db\+\_\+insert@{db\+\_\+insert}!database\+\_\+common.\+h@{database\+\_\+common.\+h}}
+\subsubsection{\texorpdfstring{db\+\_\+insert()}{db\_insert()}}
+{\footnotesize\ttfamily int db\+\_\+insert (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{void $\ast$}]{d\+\_\+key,  }\item[{size\+\_\+t}]{s\+\_\+key,  }\item[{void $\ast$}]{d\+\_\+data,  }\item[{size\+\_\+t}]{s\+\_\+data }\end{DoxyParamCaption})}
+
+
+
+Insert a value in the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the db \\
+\hline
+{\em d\+\_\+key} & -\/ Pointer to the data of the key \\
+\hline
+{\em s\+\_\+key} & -\/ Size of the key (using sizeof) \\
+\hline
+{\em d\+\_\+data} & -\/ Pointer to the data \\
+\hline
+{\em s\+\_\+data} & -\/ Sizeof the corresponding data (using sizeof) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{database__common_8h_a699edc632377de02bf704bd095f2ddca}\label{database__common_8h_a699edc632377de02bf704bd095f2ddca}} 
+\index{database\+\_\+common.\+h@{database\+\_\+common.\+h}!log\+\_\+error@{log\+\_\+error}}
+\index{log\+\_\+error@{log\+\_\+error}!database\+\_\+common.\+h@{database\+\_\+common.\+h}}
+\subsubsection{\texorpdfstring{log\+\_\+error()}{log\_error()}}
+{\footnotesize\ttfamily void log\+\_\+error (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{int}]{ret }\end{DoxyParamCaption})}
+
+
+
+Small helper function for logging errors in the logfile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the database \\
+\hline
+{\em ret} & -\/ The error code to be printed \\
+\hline
+\end{DoxyParams}

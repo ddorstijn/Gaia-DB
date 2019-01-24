@@ -1,0 +1,323 @@
+\hypertarget{gaia__db_8h}{}\section{src/gaia\+\_\+db.h File Reference}
+\label{gaia__db_8h}\index{src/gaia\+\_\+db.\+h@{src/gaia\+\_\+db.\+h}}
+
+
+Gaia DB wrapper.  
+
+
+{\ttfamily \#include \char`\"{}db.\+h\char`\"{}}\newline
+Include dependency graph for gaia\+\_\+db.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{gaia__db_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=155pt]{gaia__db_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__star}{\+\_\+star}}
+\begin{DoxyCompactList}\small\item\em Star struct which holds basic data of a star. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct__db__ctx}{\+\_\+db\+\_\+ctx}}
+\begin{DoxyCompactList}\small\item\em A small struct which holds pointers to databases and the directory they are in. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}\label{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}} 
+typedef struct \mbox{\hyperlink{struct__star}{\+\_\+star}} \mbox{\hyperlink{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}{S\+Star}}
+\begin{DoxyCompactList}\small\item\em Star struct which holds basic data of a star. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{gaia__db_8h_a35d505fe9a8343f69d3079cabcf0d402}\label{gaia__db_8h_a35d505fe9a8343f69d3079cabcf0d402}} 
+typedef struct \mbox{\hyperlink{struct__db__ctx}{\+\_\+db\+\_\+ctx}} \mbox{\hyperlink{gaia__db_8h_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}}
+\begin{DoxyCompactList}\small\item\em A small struct which holds pointers to databases and the directory they are in. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{gaia__db_8h_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}} $\ast$G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_a43c8cb7ed007081547c637b25179131b}{gaia\+\_\+setup\+\_\+database}} (const char $\ast$directory)
+\begin{DoxyCompactList}\small\item\em Setup the databases for G\+A\+IA. \end{DoxyCompactList}\item 
+int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_a95196dc100fec9efbc68b8504ffe106f}{gaia\+\_\+close\+\_\+database}} (\mbox{\hyperlink{gaia__db_8h_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}} $\ast$context)
+\begin{DoxyCompactList}\small\item\em Close the databases. Writes the db\textquotesingle{}s to a file. \end{DoxyCompactList}\item 
+int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_ab0c2f8d166040d234e56d786b7a35eb1}{gaia\+\_\+new\+\_\+star}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id, double x, double y, double z, u\+\_\+int32\+\_\+t colour, float brightness, u\+\_\+int64\+\_\+t morton\+\_\+index)
+\item 
+\mbox{\hyperlink{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}{S\+Star}} $\ast$G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_adc9ab238094c0e19f4d7830a3c48e5ca}{gaia\+\_\+get\+\_\+star}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Get a star from the db based on the ID of the star. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}{S\+Star}} $\ast$G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_ae000cfd5cf46d177e00462153e4d3cb7}{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}} (DB $\ast$sdbp, u\+\_\+int64\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Get the star based on it\textquotesingle{}s morton code. \end{DoxyCompactList}\item 
+int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_aa4475b8bfd3dfe389fdc0096f48af7ad}{gaia\+\_\+delete\+\_\+star}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Search and remove a star from the db. \end{DoxyCompactList}\item 
+int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_aff8a02a9c2141ded3c9fea3e3ba17a70}{gaia\+\_\+update\+\_\+star\+\_\+morton}} (DB $\ast$dbp, u\+\_\+int64\+\_\+t id, u\+\_\+int64\+\_\+t morton\+\_\+index)
+\begin{DoxyCompactList}\small\item\em Update the morton code of the star. \end{DoxyCompactList}\item 
+D\+BC $\ast$G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_abe434f04ea17b985dc6971ad55f00cfa}{gaia\+\_\+open\+\_\+cursor}} (DB $\ast$dbp)
+\begin{DoxyCompactList}\small\item\em Get a new cursor to iterate over the database. \end{DoxyCompactList}\item 
+char G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_a06e8633beaa18999641c080f61ebb4cd}{gaia\+\_\+cursor\+\_\+has\+\_\+next}} (D\+BC $\ast$dbcp)
+\begin{DoxyCompactList}\small\item\em Check if the cursor is on the last record and jump to that record. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}{S\+Star}} $\ast$G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_abce6dcda8b96c56f717254039107c09e}{gaia\+\_\+cursor\+\_\+get\+\_\+star}} (D\+BC $\ast$dbcp)
+\begin{DoxyCompactList}\small\item\em Get the star the cursor is pointing to. \end{DoxyCompactList}\item 
+int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_abe5eabfa1ec4a0af7349d554ace104ad}{gaia\+\_\+cursor\+\_\+goto\+\_\+star}} (D\+BC $\ast$dbcp, u\+\_\+int64\+\_\+t id)
+\begin{DoxyCompactList}\small\item\em Set the cursor to a star with the id given. \end{DoxyCompactList}\item 
+int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL \mbox{\hyperlink{gaia__db_8h_a78ae970378513f914c0c627edcf457d4}{gaia\+\_\+close\+\_\+cursor}} (D\+BC $\ast$dbcp)
+\begin{DoxyCompactList}\small\item\em Close the cursor after you are done using it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Gaia DB wrapper. 
+
+\begin{DoxyAuthor}{Author}
+Danny Dorstijn 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+0.\+8 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+2019-\/01-\/23
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2019 
+\end{DoxyCopyright}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{gaia__db_8h_a78ae970378513f914c0c627edcf457d4}\label{gaia__db_8h_a78ae970378513f914c0c627edcf457d4}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+close\+\_\+cursor@{gaia\+\_\+close\+\_\+cursor}}
+\index{gaia\+\_\+close\+\_\+cursor@{gaia\+\_\+close\+\_\+cursor}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+close\+\_\+cursor()}{gaia\_close\_cursor()}}
+{\footnotesize\ttfamily int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+close\+\_\+cursor (\begin{DoxyParamCaption}\item[{D\+BC $\ast$}]{dbcp }\end{DoxyParamCaption})}
+
+
+
+Close the cursor after you are done using it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbcp} & -\/ Handle to the database \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_a95196dc100fec9efbc68b8504ffe106f}\label{gaia__db_8h_a95196dc100fec9efbc68b8504ffe106f}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+close\+\_\+database@{gaia\+\_\+close\+\_\+database}}
+\index{gaia\+\_\+close\+\_\+database@{gaia\+\_\+close\+\_\+database}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+close\+\_\+database()}{gaia\_close\_database()}}
+{\footnotesize\ttfamily int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+close\+\_\+database (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{gaia__db_8h_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}} $\ast$}]{ctx }\end{DoxyParamCaption})}
+
+
+
+Close the databases. Writes the db\textquotesingle{}s to a file. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ctx} & -\/ The context with both the database handles \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Returns err code or 0 if all was fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_abce6dcda8b96c56f717254039107c09e}\label{gaia__db_8h_abce6dcda8b96c56f717254039107c09e}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+cursor\+\_\+get\+\_\+star@{gaia\+\_\+cursor\+\_\+get\+\_\+star}}
+\index{gaia\+\_\+cursor\+\_\+get\+\_\+star@{gaia\+\_\+cursor\+\_\+get\+\_\+star}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+cursor\+\_\+get\+\_\+star()}{gaia\_cursor\_get\_star()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}{S\+Star}}$\ast$ G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+cursor\+\_\+get\+\_\+star (\begin{DoxyParamCaption}\item[{D\+BC $\ast$}]{dbcp }\end{DoxyParamCaption})}
+
+
+
+Get the star the cursor is pointing to. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbcp} & -\/ Handle to the database \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+Star$\ast$ -\/ The star the cursor is pointing to 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_abe5eabfa1ec4a0af7349d554ace104ad}\label{gaia__db_8h_abe5eabfa1ec4a0af7349d554ace104ad}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+cursor\+\_\+goto\+\_\+star@{gaia\+\_\+cursor\+\_\+goto\+\_\+star}}
+\index{gaia\+\_\+cursor\+\_\+goto\+\_\+star@{gaia\+\_\+cursor\+\_\+goto\+\_\+star}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+cursor\+\_\+goto\+\_\+star()}{gaia\_cursor\_goto\_star()}}
+{\footnotesize\ttfamily int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+cursor\+\_\+goto\+\_\+star (\begin{DoxyParamCaption}\item[{D\+BC $\ast$}]{dbcp,  }\item[{u\+\_\+int64\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Set the cursor to a star with the id given. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbcp} & -\/ Handle to the database \\
+\hline
+{\em id} & -\/ ID to jump to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_a06e8633beaa18999641c080f61ebb4cd}\label{gaia__db_8h_a06e8633beaa18999641c080f61ebb4cd}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+cursor\+\_\+has\+\_\+next@{gaia\+\_\+cursor\+\_\+has\+\_\+next}}
+\index{gaia\+\_\+cursor\+\_\+has\+\_\+next@{gaia\+\_\+cursor\+\_\+has\+\_\+next}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+cursor\+\_\+has\+\_\+next()}{gaia\_cursor\_has\_next()}}
+{\footnotesize\ttfamily char G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+cursor\+\_\+has\+\_\+next (\begin{DoxyParamCaption}\item[{D\+BC $\ast$}]{dbcp }\end{DoxyParamCaption})}
+
+
+
+Check if the cursor is on the last record and jump to that record. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbcp} & -\/ Handle to the database \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+char -\/ 1 if jump is succesful. Else 0 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_aa4475b8bfd3dfe389fdc0096f48af7ad}\label{gaia__db_8h_aa4475b8bfd3dfe389fdc0096f48af7ad}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+delete\+\_\+star@{gaia\+\_\+delete\+\_\+star}}
+\index{gaia\+\_\+delete\+\_\+star@{gaia\+\_\+delete\+\_\+star}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+delete\+\_\+star()}{gaia\_delete\_star()}}
+{\footnotesize\ttfamily int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+delete\+\_\+star (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Search and remove a star from the db. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for the primary database \\
+\hline
+{\em id} & -\/ The id of the star \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_adc9ab238094c0e19f4d7830a3c48e5ca}\label{gaia__db_8h_adc9ab238094c0e19f4d7830a3c48e5ca}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+get\+\_\+star@{gaia\+\_\+get\+\_\+star}}
+\index{gaia\+\_\+get\+\_\+star@{gaia\+\_\+get\+\_\+star}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+get\+\_\+star()}{gaia\_get\_star()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}{S\+Star}}$\ast$ G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+get\+\_\+star (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+
+
+Get a star from the db based on the ID of the star. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for the primary database \\
+\hline
+{\em id} & -\/ ID of the star you are looking for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+Star$\ast$ -\/ Star object with all the data corresponding to the id given 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_ae000cfd5cf46d177e00462153e4d3cb7}\label{gaia__db_8h_ae000cfd5cf46d177e00462153e4d3cb7}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton@{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}}
+\index{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton@{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton()}{gaia\_get\_star\_by\_morton()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaia__db_8h_af49b70ce88035047e479faabf6e1593f}{S\+Star}}$\ast$ G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton (\begin{DoxyParamCaption}\item[{DB $\ast$}]{sdbp,  }\item[{u\+\_\+int64\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Get the star based on it\textquotesingle{}s morton code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sdbp} & -\/ Handle for the secondary database with morton code indices \\
+\hline
+{\em index} & -\/ The morton code index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+Star$\ast$ -\/ The star data corresponding to the index given 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_ab0c2f8d166040d234e56d786b7a35eb1}\label{gaia__db_8h_ab0c2f8d166040d234e56d786b7a35eb1}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+new\+\_\+star@{gaia\+\_\+new\+\_\+star}}
+\index{gaia\+\_\+new\+\_\+star@{gaia\+\_\+new\+\_\+star}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+new\+\_\+star()}{gaia\_new\_star()}}
+{\footnotesize\ttfamily int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+new\+\_\+star (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id,  }\item[{double}]{x,  }\item[{double}]{y,  }\item[{double}]{z,  }\item[{u\+\_\+int32\+\_\+t}]{colour,  }\item[{float}]{brightness,  }\item[{u\+\_\+int64\+\_\+t}]{morton\+\_\+index }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle for the primary db \\
+\hline
+{\em id} & -\/ ID of the star extracted from the uuid in the gaia dataset \\
+\hline
+{\em x} & -\/ X position of the star \\
+\hline
+{\em y} & -\/ Y position of the star \\
+\hline
+{\em z} & -\/ Z position of the star \\
+\hline
+{\em colour} & -\/ The colour of the star \\
+\hline
+{\em brightness} & -\/ The brightness of the star (apparent magnitude) \\
+\hline
+{\em morton\+\_\+index} & -\/ The morton index of the star. Leave 0 if unsure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if fine 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_abe434f04ea17b985dc6971ad55f00cfa}\label{gaia__db_8h_abe434f04ea17b985dc6971ad55f00cfa}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+open\+\_\+cursor@{gaia\+\_\+open\+\_\+cursor}}
+\index{gaia\+\_\+open\+\_\+cursor@{gaia\+\_\+open\+\_\+cursor}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+open\+\_\+cursor()}{gaia\_open\_cursor()}}
+{\footnotesize\ttfamily D\+BC$\ast$ G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+open\+\_\+cursor (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp }\end{DoxyParamCaption})}
+
+
+
+Get a new cursor to iterate over the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle to the database \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+B\+C$\ast$ -\/ The cursor 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_a43c8cb7ed007081547c637b25179131b}\label{gaia__db_8h_a43c8cb7ed007081547c637b25179131b}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+setup\+\_\+database@{gaia\+\_\+setup\+\_\+database}}
+\index{gaia\+\_\+setup\+\_\+database@{gaia\+\_\+setup\+\_\+database}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+setup\+\_\+database()}{gaia\_setup\_database()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{gaia__db_8h_a35d505fe9a8343f69d3079cabcf0d402}{D\+B\+\_\+\+C\+TX}}$\ast$ G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+setup\+\_\+database (\begin{DoxyParamCaption}\item[{const char $\ast$}]{directory }\end{DoxyParamCaption})}
+
+
+
+Setup the databases for G\+A\+IA. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em directory} & -\/ The base directory to put the databases in \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+D\+B\+\_\+\+C\+T\+X$\ast$ -\/ A helper to manage the databases 
+\end{DoxyReturn}
+\mbox{\Hypertarget{gaia__db_8h_aff8a02a9c2141ded3c9fea3e3ba17a70}\label{gaia__db_8h_aff8a02a9c2141ded3c9fea3e3ba17a70}} 
+\index{gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}!gaia\+\_\+update\+\_\+star\+\_\+morton@{gaia\+\_\+update\+\_\+star\+\_\+morton}}
+\index{gaia\+\_\+update\+\_\+star\+\_\+morton@{gaia\+\_\+update\+\_\+star\+\_\+morton}!gaia\+\_\+db.\+h@{gaia\+\_\+db.\+h}}
+\subsubsection{\texorpdfstring{gaia\+\_\+update\+\_\+star\+\_\+morton()}{gaia\_update\_star\_morton()}}
+{\footnotesize\ttfamily int G\+A\+I\+A\+D\+B\+\_\+\+D\+LL gaia\+\_\+update\+\_\+star\+\_\+morton (\begin{DoxyParamCaption}\item[{DB $\ast$}]{dbp,  }\item[{u\+\_\+int64\+\_\+t}]{id,  }\item[{u\+\_\+int64\+\_\+t}]{morton\+\_\+index }\end{DoxyParamCaption})}
+
+
+
+Update the morton code of the star. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dbp} & -\/ Handle of the primary database \\
+\hline
+{\em id} & -\/ The id of the star \\
+\hline
+{\em morton\+\_\+index} & -\/ The new morton index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int -\/ Error code or 0 if all is fine 
+\end{DoxyReturn}

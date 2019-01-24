@@ -1,5 +1,5 @@
 /**
- * @file gaia_db.hpp
+ * @file gaia_db.h
  * @author Danny Dorstijn
  * @brief Gaia DB wrapper
  * @version 0.8

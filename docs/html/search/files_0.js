@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['database_2ecpp',['database.cpp',['../database_8cpp.html',1,'']]],
-  ['database_2ehpp',['database.hpp',['../database_8hpp.html',1,'']]]
+  ['database_5fcommon_2ec',['database_common.c',['../database__common_8c.html',1,'']]],
+  ['database_5fcommon_2eh',['database_common.h',['../database__common_8h.html',1,'']]]
 ];

@@ -1,3 +1,14 @@
+/**
+ * @file main.c
+ * @author Danny Dorstijn
+ * @brief Test function for the database wrapper
+ * @version 0.6
+ * @date 2019-01-24
+ *
+ * @copyright Copyright (c) 2019
+ *
+ */
+
 #include "../gaia_db.h"
 
 #include "assert.h"

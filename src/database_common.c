@@ -1,8 +1,8 @@
 /**
  * @file database_common.c
  * @author Danny Dorstijn
- * @brief Helper functions for database operations
- * @version 0.8
+ * @brief Helper functions for database interaction
+ * @version 0.9
  * @date 2019-01-23
  *
  * @copyright Copyright (c) 2019
@@ -51,6 +51,12 @@ make_path(const char* str1, const char* str2)
     return ret;
 }
 
+/**
+ * @brief Small helper function for logging errors in the logfile.
+ *
+ * @param dbp - Handle to the database
+ * @param ret - The error code to be printed
+ */
 void
 log_error(DB* dbp, int ret)
 {
@@ -65,6 +71,7 @@ log_error(DB* dbp, int ret)
  * @param dbpp - A pointer to a handle for the new db
  * @param db_directory - The directory where to place the db
  * @param db_name - Name of the database
+ * @param log_file - Log file to print all errors in
  * @param db_flags - Flags for creating a db
  * @param db_type - Type of the db (BTree, Heap, Queue, etc.)
  * @return int - Error code or 0 if all is fine
@@ -160,6 +167,14 @@ db_insert(DB* dbp, void* d_key, size_t s_key, void* d_data, size_t s_data)
     return ret;
 }
 
+/**
+ * @brief Get an item from the database.
+ *
+ * @param dbp - Handle to the database
+ * @param d_key - Pointer to the key
+ * @param s_key - Size of the key
+ * @return void* - Data of the record
+ */
 void*
 db_get(DB* dbp, void* d_key, int s_key)
 {

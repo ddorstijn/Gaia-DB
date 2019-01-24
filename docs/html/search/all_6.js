@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['sdbp',['sdbp',['../struct__db__ctx.html#ac2d1ca553302f173bd7d5f7bcf410b17',1,'_db_ctx']]],
-  ['sstar',['SStar',['../gaia__db_8hpp.html#af49b70ce88035047e479faabf6e1593f',1,'gaia_db.hpp']]]
+  ['log_5ferror',['log_error',['../database__common_8c.html#a699edc632377de02bf704bd095f2ddca',1,'log_error(DB *dbp, int ret):&#160;database_common.c'],['../database__common_8h.html#a699edc632377de02bf704bd095f2ddca',1,'log_error(DB *dbp, int ret):&#160;database_common.c']]]
 ];

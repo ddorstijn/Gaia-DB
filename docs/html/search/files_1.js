@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['gaia_5fdb_2ecpp',['gaia_db.cpp',['../gaia__db_8cpp.html',1,'']]],
-  ['gaia_5fdb_2ehpp',['gaia_db.hpp',['../gaia__db_8hpp.html',1,'']]]
+  ['gaia_5fdb_2ec',['gaia_db.c',['../gaia__db_8c.html',1,'']]],
+  ['gaia_5fdb_2eh',['gaia_db.h',['../gaia__db_8h.html',1,'']]]
 ];

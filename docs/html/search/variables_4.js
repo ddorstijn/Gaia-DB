@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sdbp',['sdbp',['../struct__db__ctx.html#ac2d1ca553302f173bd7d5f7bcf410b17',1,'_db_ctx']]]
+  ['morton_5findex',['morton_index',['../struct__star.html#ada0104a0c6633bf55193b3d6e55e6b3c',1,'_star']]]
 ];

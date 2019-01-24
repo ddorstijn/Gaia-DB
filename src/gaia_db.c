@@ -1,5 +1,5 @@
 /**
- * @file gaia_db.cpp
+ * @file gaia_db.c
  * @author Danny Dorstijn
  * @brief Implementation of the BerkeleyDB wrapper
  * @version 0.8
@@ -90,7 +90,7 @@ gaia_close_database(DB_CTX* ctx)
 }
 
 /**
- * @brief Insert new star in the database.
+ * @brief
  *
  * @param dbp - Handle for the primary db
  * @param id - ID of the star extracted from the uuid in the gaia dataset
@@ -98,6 +98,7 @@ gaia_close_database(DB_CTX* ctx)
  * @param y - Y position of the star
  * @param z - Z position of the star
  * @param colour - The colour of the star
+ * @param brightness - The brightness of the star (apparent magnitude)
  * @param morton_index - The morton index of the star. Leave 0 if unsure
  * @return int - Error code or 0 if fine
  */

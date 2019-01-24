@@ -1,0 +1,122 @@
+\begin{theindex}
+
+  \item {\+\_\+db\+\_\+ctx}, \hyperpage{5}
+  \item {\+\_\+star}, \hyperpage{5}
+
+  \indexspace
+
+  \item {database\+\_\+common.\+c}
+    \subitem {db\+\_\+close}, \hyperpage{8}
+    \subitem {db\+\_\+get}, \hyperpage{8}
+    \subitem {db\+\_\+init}, \hyperpage{9}
+    \subitem {db\+\_\+insert}, \hyperpage{9}
+    \subitem {log\+\_\+error}, \hyperpage{10}
+    \subitem {make\+\_\+path}, \hyperpage{10}
+  \item {database\+\_\+common.\+h}
+    \subitem {db\+\_\+close}, \hyperpage{12}
+    \subitem {db\+\_\+get}, \hyperpage{13}
+    \subitem {db\+\_\+init}, \hyperpage{13}
+    \subitem {db\+\_\+insert}, \hyperpage{14}
+    \subitem {log\+\_\+error}, \hyperpage{14}
+  \item {db\+\_\+close}
+    \subitem {database\+\_\+common.\+c}, \hyperpage{8}
+    \subitem {database\+\_\+common.\+h}, \hyperpage{12}
+  \item {db\+\_\+get}
+    \subitem {database\+\_\+common.\+c}, \hyperpage{8}
+    \subitem {database\+\_\+common.\+h}, \hyperpage{13}
+  \item {db\+\_\+init}
+    \subitem {database\+\_\+common.\+c}, \hyperpage{9}
+    \subitem {database\+\_\+common.\+h}, \hyperpage{13}
+  \item {db\+\_\+insert}
+    \subitem {database\+\_\+common.\+c}, \hyperpage{9}
+    \subitem {database\+\_\+common.\+h}, \hyperpage{14}
+
+  \indexspace
+
+  \item {gaia\+\_\+close\+\_\+cursor}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{16}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{23}
+  \item {gaia\+\_\+close\+\_\+database}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{16}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{24}
+  \item {gaia\+\_\+cursor\+\_\+get\+\_\+star}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{17}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{24}
+  \item {gaia\+\_\+cursor\+\_\+goto\+\_\+star}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{17}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{24}
+  \item {gaia\+\_\+cursor\+\_\+has\+\_\+next}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{17}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{25}
+  \item {gaia\+\_\+db.\+c}
+    \subitem {gaia\+\_\+close\+\_\+cursor}, \hyperpage{16}
+    \subitem {gaia\+\_\+close\+\_\+database}, \hyperpage{16}
+    \subitem {gaia\+\_\+cursor\+\_\+get\+\_\+star}, \hyperpage{17}
+    \subitem {gaia\+\_\+cursor\+\_\+goto\+\_\+star}, \hyperpage{17}
+    \subitem {gaia\+\_\+cursor\+\_\+has\+\_\+next}, \hyperpage{17}
+    \subitem {gaia\+\_\+delete\+\_\+star}, \hyperpage{18}
+    \subitem {gaia\+\_\+get\+\_\+star}, \hyperpage{18}
+    \subitem {gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}, 
+		\hyperpage{19}
+    \subitem {gaia\+\_\+new\+\_\+star}, \hyperpage{19}
+    \subitem {gaia\+\_\+open\+\_\+cursor}, \hyperpage{20}
+    \subitem {gaia\+\_\+setup\+\_\+database}, \hyperpage{20}
+    \subitem {gaia\+\_\+update\+\_\+star\+\_\+morton}, \hyperpage{20}
+    \subitem {get\+\_\+id\+\_\+callback}, \hyperpage{21}
+  \item {gaia\+\_\+db.\+h}
+    \subitem {gaia\+\_\+close\+\_\+cursor}, \hyperpage{23}
+    \subitem {gaia\+\_\+close\+\_\+database}, \hyperpage{24}
+    \subitem {gaia\+\_\+cursor\+\_\+get\+\_\+star}, \hyperpage{24}
+    \subitem {gaia\+\_\+cursor\+\_\+goto\+\_\+star}, \hyperpage{24}
+    \subitem {gaia\+\_\+cursor\+\_\+has\+\_\+next}, \hyperpage{25}
+    \subitem {gaia\+\_\+delete\+\_\+star}, \hyperpage{25}
+    \subitem {gaia\+\_\+get\+\_\+star}, \hyperpage{25}
+    \subitem {gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}, 
+		\hyperpage{26}
+    \subitem {gaia\+\_\+new\+\_\+star}, \hyperpage{26}
+    \subitem {gaia\+\_\+open\+\_\+cursor}, \hyperpage{27}
+    \subitem {gaia\+\_\+setup\+\_\+database}, \hyperpage{27}
+    \subitem {gaia\+\_\+update\+\_\+star\+\_\+morton}, \hyperpage{28}
+  \item {gaia\+\_\+delete\+\_\+star}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{18}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{25}
+  \item {gaia\+\_\+get\+\_\+star}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{18}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{25}
+  \item {gaia\+\_\+get\+\_\+star\+\_\+by\+\_\+morton}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{19}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{26}
+  \item {gaia\+\_\+new\+\_\+star}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{19}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{26}
+  \item {gaia\+\_\+open\+\_\+cursor}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{20}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{27}
+  \item {gaia\+\_\+setup\+\_\+database}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{20}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{27}
+  \item {gaia\+\_\+update\+\_\+star\+\_\+morton}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{20}
+    \subitem {gaia\+\_\+db.\+h}, \hyperpage{28}
+  \item {get\+\_\+id\+\_\+callback}
+    \subitem {gaia\+\_\+db.\+c}, \hyperpage{21}
+
+  \indexspace
+
+  \item {log\+\_\+error}
+    \subitem {database\+\_\+common.\+c}, \hyperpage{10}
+    \subitem {database\+\_\+common.\+h}, \hyperpage{14}
+
+  \indexspace
+
+  \item {make\+\_\+path}
+    \subitem {database\+\_\+common.\+c}, \hyperpage{10}
+
+  \indexspace
+
+  \item {src/database\+\_\+common.\+c}, \hyperpage{7}
+  \item {src/database\+\_\+common.\+h}, \hyperpage{11}
+  \item {src/gaia\+\_\+db.\+c}, \hyperpage{14}
+  \item {src/gaia\+\_\+db.\+h}, \hyperpage{21}
+
+\end{theindex}

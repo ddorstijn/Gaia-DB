@@ -1,8 +1,8 @@
 /**
- * @file database.hpp
+ * @file database_common.h
  * @author Danny Dorstijn
- * @brief Wrapper for the BerkeleyDB
- * @version 0.8
+ * @brief Helper functions for database interaction
+ * @version 0.9
  * @date 2019-01-23
  *
  * @copyright Copyright (c) 2019
