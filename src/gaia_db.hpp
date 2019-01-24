@@ -86,7 +86,7 @@ typedef struct _db_ctx
      * @brief Home directory the databases are located in.
      *
      */
-    char* db_dir;
+    const char* db_dir;
 } DB_CTX;
 
 DB_CTX*

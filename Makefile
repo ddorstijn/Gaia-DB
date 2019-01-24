@@ -33,7 +33,7 @@ endif
 win32: $(obj)
 	$(CXX) $(CFLAGS) -o bin/libgaiadb.dll $^ $(LDFLAGS)
 
-linux: CFLAGS += -shared
+linux: CFLAGS += -shared -fPIC
 linux: $(obj)
 	$(CXX) $(CFLAGS) -o bin/libgaiadb.so $^ $(LDFLAGS)
 

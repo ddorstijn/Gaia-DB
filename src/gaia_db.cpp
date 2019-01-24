@@ -47,6 +47,7 @@ DB_CTX*
 gaia_setup_database(const char* directory)
 {
     DB_CTX* ctx = (DB_CTX*)malloc(sizeof *ctx);
+    ctx->db_dir = directory;
     db_init(&ctx->dbp, directory, "stars.db", DB_CREATE, DB_HASH);
     db_init(&ctx->sdbp, directory, "morton_index.sdb", DB_CREATE, DB_HASH);
 

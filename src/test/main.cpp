@@ -10,7 +10,7 @@ main()
 
     // Setup databases - one for the stars and one secondary
     // The secondary indexes the morton codes for quick access
-    db_ctx = gaia_setup_database("");
+    db_ctx = gaia_setup_database("databases");
 
     // Test: insert
     for (u_int64_t i = 0; i < 21312; i++) {

@@ -18,14 +18,15 @@
 #include <inttypes.h>
 
 /**
- * @brief Add to strings together. This needs to be freed.
+ * @brief Form a path from the string to the directory and the name of the db.
+ * This needs to be freed. Done automatically by berkeley if used to create db.
  *
  * @param str1 - First string
  * @param str2 - Second string
  * @return char* - Both strings combined
  */
 char*
-concatenate_strings(const char* str1, const char* str2)
+make_path(const char* str1, const char* str2)
 {
     if (strlen(str1) == 0) {
         return (char*)str2;
@@ -35,9 +36,9 @@ concatenate_strings(const char* str1, const char* str2)
 
     size_t size;
 
-    size = strlen(str1) + strlen(str2);
+    size = strlen(str1) + strlen(str2) + 1;
     char* ret = (char*)malloc(size);
-    snprintf(ret, size, "%s%s", str1, str2);
+    snprintf(ret, size, "%s/%s", str1, str2);
 
     return ret;
 }
@@ -76,7 +77,7 @@ db_init(DB** dbpp, const char* db_directory, const char* db_name,
     dbp->set_errpfx(dbp, db_name);
 
     // Open or create the database
-    char* db_path = concatenate_strings(db_directory, db_name);
+    char* db_path = make_path(db_directory, db_name);
     ret = dbp->open(dbp, NULL, db_path, NULL, db_type, db_flags, 0);
     if (ret != 0) {
         printf("Creation of data failed with the following error: \n%s",
