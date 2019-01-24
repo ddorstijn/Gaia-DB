@@ -44,7 +44,7 @@ make_path(const char* str1, const char* str2)
 
     // Added 2 extra charachters. One for the "/" and one spare for the null
     // termination
-    size = strlen(str1) + strlen(str2) + 3;
+    size = strlen(str1) + strlen(str2) + 2;
     char* ret = (char*)malloc(size);
     snprintf(ret, size, "%s%c%s", str1, delimiter, str2);
 

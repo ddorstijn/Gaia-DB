@@ -42,6 +42,6 @@ test: $(obj) $(test_obj)
 	$(CXX) $(CFLAGS) -o bin/gaiadb $^ $(LDFLAGS)
 
 clean:
-	rm -f $(obj) win32
+	rm -f $(obj) $(test_obj) test
 
 .PHONY: default linux win32 test clean
