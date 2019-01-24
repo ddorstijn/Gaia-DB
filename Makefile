@@ -30,6 +30,7 @@ endif
 %.o: %.cpp
 	$(CXX) -c $(CFLAGS) $*.cpp -o $*.o 
 
+win32: CFLAGS += -shared -DBUILD_GAIADB_DLL
 win32: $(obj)
 	$(CXX) $(CFLAGS) -o bin/libgaiadb.dll $^ $(LDFLAGS)
 
@@ -43,4 +44,4 @@ test: $(obj) $(test_obj)
 clean:
 	rm -f $(obj) win32
 
-.PHONY: default win32 clean
+.PHONY: default linux win32 test clean

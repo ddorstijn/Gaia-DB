@@ -14,6 +14,12 @@
 
 #include "database.hpp"
 
+#ifdef BUILD_GAIADB_DLL
+#define GAIADB_DLL __declspec(dllexport)
+#else
+#define GAIADB_DLL
+#endif
+
 /**
  * @brief Star struct which holds basic data of a star.
  *
@@ -89,39 +95,39 @@ typedef struct _db_ctx
     const char* db_dir;
 } DB_CTX;
 
-DB_CTX*
+DB_CTX* GAIADB_DLL
 gaia_setup_database(const char* directory);
 
-int
+int GAIADB_DLL
 gaia_close_database(DB_CTX* context);
 
-int
+int GAIADB_DLL
 gaia_new_star(DB* dbp, u_int64_t id, double x, double y, double z,
               u_int32_t colour, float brightness, u_int64_t morton_index);
 
-SStar*
+SStar* GAIADB_DLL
 gaia_get_star(DB* dbp, u_int64_t id);
 
-SStar*
+SStar* GAIADB_DLL
 gaia_get_star_by_morton(DB* sdbp, u_int64_t index);
 
-int
+int GAIADB_DLL
 gaia_delete_star(DB* dbp, u_int64_t id);
 
-int
+int GAIADB_DLL
 gaia_update_star_morton(DB* dbp, u_int64_t id, u_int64_t morton_index);
 
 // Cursor
-DBC*
+DBC* GAIADB_DLL
 gaia_get_cursor(DB* dbp);
 
-SStar*
+SStar* GAIADB_DLL
 gaia_get_next_star(DBC* dbcp);
 
-SStar*
+SStar* GAIADB_DLL
 gaia_goto_star(DBC* dbcp, u_int64_t id);
 
-int
+int GAIADB_DLL
 gaia_close_cursor(DBC* dbcp);
 
 #endif // !GAIA_DB_H
