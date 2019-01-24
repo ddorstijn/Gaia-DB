@@ -71,3 +71,7 @@ cscope.po.out
 # Ignore build dir and inlcude/lib dirs for windows
 include/
 lib/
+
+# Ignore databas files
+*.db
+*.sdb
