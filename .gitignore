@@ -69,6 +69,5 @@ cscope.po.out
 # End of https://www.gitignore.io/api/c++,tags,visualstudiocode
 
 # Ignore build dir and inlcude/lib dirs for windows
-include/
 lib/
 bin/
