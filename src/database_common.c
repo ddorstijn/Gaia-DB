@@ -1,7 +1,7 @@
 /**
- * @file database.cpp
+ * @file database_common.c
  * @author Danny Dorstijn
- * @brief Implementation for the Gaia DB wrapper
+ * @brief Helper functions for database operations
  * @version 0.8
  * @date 2019-01-23
  *
@@ -9,7 +9,7 @@
  *
  */
 
-#include "database.h"
+#include "database_common.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -160,14 +160,6 @@ db_insert(DB* dbp, void* d_key, size_t s_key, void* d_data, size_t s_data)
     return ret;
 }
 
-/**
- * @brief Get a value from the database.
- *
- * @param dbp - Handle to the database
- * @param d_key - Pointer to the value of the key
- * @param s_key - Size of the value (using sizeof)
- * @return void* - The data object retrieved from the db
- */
 void*
 db_get(DB* dbp, void* d_key, int s_key)
 {
@@ -187,101 +179,4 @@ db_get(DB* dbp, void* d_key, int s_key)
     }
 
     return data.data;
-}
-
-DBC*
-db_open_cursor(DB* dbp)
-{
-    int ret;
-
-    DBC* dbcp;
-    ret = dbp->cursor(dbp, NULL, &dbcp, 0);
-    if (ret != 0) {
-        log_error(dbp, ret);
-    }
-
-    return dbcp;
-}
-
-int
-db_close_cursor(DBC* dbcp)
-{
-    int ret = -1;
-
-    if (dbcp != NULL) {
-        ret = dbcp->close(dbcp);
-    }
-
-    return ret;
-}
-
-void*
-db_cursor_read_next(DBC* dbcp)
-{
-    DBT key, data;
-    int ret = -1;
-
-    /* Initialize our DBTs. */
-    memset(&key, 0, sizeof(DBT));
-    memset(&data, 0, sizeof(DBT));
-
-    ret = dbcp->get(dbcp, &key, &data, DB_NEXT);
-    if (ret != 0) {
-        if (ret == DB_NOTFOUND) {
-            printf("At the end of the database");
-        } else {
-            printf("Error getting next record");
-        }
-    }
-
-    return data.data;
-}
-
-void*
-db_cursor_jump_to(DBC* dbcp, u_int64_t id)
-{
-    DBT key, data;
-    int ret;
-
-    /* Initialize our DBTs. */
-    memset(&key, 0, sizeof(DBT));
-    memset(&data, 0, sizeof(DBT));
-
-    ret = dbcp->get(dbcp, &key, &data, DB_SET);
-    if (ret != 0) {
-        if (ret == DB_NOTFOUND) {
-            printf("At the end of the database");
-        } else {
-            printf("Error getting next record");
-        }
-    }
-
-    return data.data;
-}
-
-/**
- * @brief Delete a record from the database.
- *
- * @param dbp - Handle for the database
- * @param d_key - Pointer to the value of the key
- * @param s_key - Size of the value (using sizeof)
- * @return int - Error code or 0 if all is fine
- */
-int
-db_delete(DB* dbp, void* d_key, int s_key)
-{
-    DBT key;
-    int ret;
-
-    memset(&key, 0, sizeof key);
-
-    key.data = d_key;
-    key.size = s_key;
-
-    ret = dbp->del(dbp, NULL, &key, 0);
-    if (ret == DB_NOTFOUND) {
-        printf("Key not found");
-    }
-
-    return ret;
 }

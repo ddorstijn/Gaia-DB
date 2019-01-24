@@ -12,7 +12,7 @@
 #ifndef GAIA_DB_H
 #define GAIA_DB_H
 
-#include "database.h"
+#include "db.h"
 
 #ifdef BUILDING_GAIADB_DLL
 #define GAIADB_DLL __declspec(dllexport)
@@ -119,13 +119,16 @@ gaia_update_star_morton(DB* dbp, u_int64_t id, u_int64_t morton_index);
 
 // Cursor
 DBC* GAIADB_DLL
-gaia_get_cursor(DB* dbp);
+gaia_open_cursor(DB* dbp);
+
+char GAIADB_DLL
+gaia_cursor_has_next(DBC* dbcp);
 
 SStar* GAIADB_DLL
-gaia_get_next_star(DBC* dbcp);
+gaia_cursor_get_star(DBC* dbcp);
 
-SStar* GAIADB_DLL
-gaia_goto_star(DBC* dbcp, u_int64_t id);
+int GAIADB_DLL
+gaia_cursor_goto_star(DBC* dbcp, u_int64_t id);
 
 int GAIADB_DLL
 gaia_close_cursor(DBC* dbcp);

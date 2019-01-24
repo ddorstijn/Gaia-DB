@@ -11,6 +11,8 @@
 
 #include "gaia_db.h"
 
+#include "database_common.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -103,13 +105,13 @@ int
 gaia_new_star(DB* dbp, u_int64_t id, double x, double y, double z,
               u_int32_t colour, float brightness, u_int64_t morton_index)
 {
+    int ret;
+
     if (morton_index == 0) {
         morton_index = id;
     }
 
     SStar star = { morton_index, id, x, y, z, colour, brightness };
-
-    int ret;
     ret = db_insert(dbp, &(star.id), sizeof star.id, &star, sizeof star);
 
     return ret;
@@ -125,8 +127,10 @@ gaia_new_star(DB* dbp, u_int64_t id, double x, double y, double z,
 SStar*
 gaia_get_star(DB* dbp, u_int64_t id)
 {
-    void* data = db_get(dbp, &id, sizeof id);
-    SStar* star = (SStar*)data;
+    SStar* star = (SStar*)db_get(dbp, &id, sizeof id);
+    if (star == NULL) {
+        log_error(dbp, DB_NOTFOUND);
+    }
 
     return star;
 }
@@ -141,47 +145,134 @@ gaia_get_star(DB* dbp, u_int64_t id)
 SStar*
 gaia_get_star_by_morton(DB* sdbp, u_int64_t index)
 {
-
     SStar* star = (SStar*)db_get(sdbp, &index, sizeof index);
     if (star == NULL) {
-        printf("ERROR: star is null");
+        log_error(sdbp, DB_NOTFOUND);
     }
+
     return star;
 }
 
+/**
+ * @brief Get a new cursor to iterate over the database.
+ *
+ * @param dbp - Handle to the database
+ * @return DBC* - The cursor
+ */
 DBC*
-gaia_get_cursor(DB* dbp)
+gaia_open_cursor(DB* dbp)
 {
+    int ret;
+
     DBC* dbcp;
-    dbcp = db_open_cursor(dbp);
+    ret = dbp->cursor(dbp, NULL, &dbcp, 0);
+    if (ret != 0) {
+        log_error(dbp, ret);
+    }
 
     return dbcp;
 }
 
-SStar*
-gaia_get_next_star(DBC* dbcp)
-{
-    void* data = db_cursor_read_next(dbcp);
-
-    SStar* star = (SStar*)data;
-    return star;
-}
-
-SStar*
-gaia_goto_star(DBC* dbcp, u_int64_t id)
-{
-    SStar* star;
-    void* data = db_cursor_jump_to(dbcp, id);
-    star = (SStar*)data;
-
-    return star;
-}
-
+/**
+ * @brief Close the cursor after you are done using it.
+ *
+ * @param dbcp - Handle to the database
+ * @return int - Error code or 0 if all is fine
+ */
 int
 gaia_close_cursor(DBC* dbcp)
 {
+    int ret = -1;
+
+    if (dbcp != NULL) {
+        ret = dbcp->close(dbcp);
+    }
+
+    return ret;
+}
+
+/**
+ * @brief Get the star the cursor is pointing to.
+ *
+ * @param dbcp - Handle to the database
+ * @return SStar* - The star the cursor is pointing to
+ */
+SStar*
+gaia_cursor_get_star(DBC* dbcp)
+{
+    DBT key, data;
     int ret;
-    ret = db_close_cursor(dbcp);
+
+    /* Initialize our DBTs. */
+    memset(&key, 0, sizeof(DBT));
+    memset(&data, 0, sizeof(DBT));
+
+    ret = dbcp->get(dbcp, &key, &data, DB_CURRENT);
+    if (ret != 0) {
+        if (ret == DB_NOTFOUND) {
+            printf("At the end of the database");
+        } else {
+            printf("Error getting next record");
+        }
+    }
+
+    SStar* star = ((SStar*)data.data);
+    return star;
+}
+
+/**
+ * @brief Check if the cursor is on the last record and jump to that record.
+ *
+ * @param dbcp - Handle to the database
+ * @return char - 1 if jump is succesful. Else 0
+ */
+char
+gaia_cursor_has_next(DBC* dbcp)
+{
+    DBT key, data;
+    int ret;
+
+    /* Initialize our DBTs. */
+    memset(&key, 0, sizeof(DBT));
+    memset(&data, 0, sizeof(DBT));
+
+    ret = dbcp->get(dbcp, &key, &data, DB_NEXT);
+    if (ret != 0) {
+        if (ret == DB_NOTFOUND) {
+            printf("At the end of the database");
+        } else {
+            printf("Error getting next record");
+        }
+    }
+
+    return ret == 0;
+}
+
+/**
+ * @brief Set the cursor to a star with the id given.
+ *
+ * @param dbcp - Handle to the database
+ * @param id - ID to jump to
+ * @return int - Error code or 0 if all is fine
+ */
+int
+gaia_cursor_goto_star(DBC* dbcp, u_int64_t id)
+{
+    DBT key, data;
+    int ret;
+
+    /* Initialize our DBTs. */
+    memset(&key, 0, sizeof(DBT));
+    memset(&data, 0, sizeof(DBT));
+
+    ret = dbcp->get(dbcp, &key, &data, DB_SET);
+    if (ret != 0) {
+        if (ret == DB_NOTFOUND) {
+            printf("At the end of the database");
+        } else {
+            printf("Error getting next record");
+        }
+    }
 
     return ret;
 }
@@ -196,8 +287,18 @@ gaia_close_cursor(DBC* dbcp)
 int
 gaia_delete_star(DB* dbp, u_int64_t id)
 {
+    DBT key;
     int ret;
-    ret = db_delete(dbp, &id, sizeof id);
+
+    memset(&key, 0, sizeof key);
+
+    key.data = &id;
+    key.size = sizeof id;
+
+    ret = dbp->del(dbp, NULL, &key, 0);
+    if (ret == DB_NOTFOUND) {
+        printf("Key not found");
+    }
 
     return ret;
 }

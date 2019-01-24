@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "common.h": "c",
-        "db.h": "c"
+        "db.h": "c",
+        "array": "c",
+        "gaia_db.h": "c"
     }
 }
