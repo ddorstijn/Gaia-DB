@@ -99,6 +99,8 @@ db_init(DB** dbpp, const char* db_directory, const char* db_name,
     dbp->set_errfile(dbp, log_file);
     dbp->set_errpfx(dbp, db_name);
 
+    dbp->set_cachesize(dbp, 0, 4096000, 0);
+
     // Open or create the database
     char* db_path = make_path(db_directory, db_name);
     ret = dbp->open(dbp, NULL, db_path, NULL, db_type, db_flags, 0);

@@ -54,9 +54,9 @@ gaia_setup_database(const char* directory)
 
     FILE* stars_log = fopen("stars.log", "a");
 
-    db_init(&ctx->dbp, directory, "stars.db", stars_log, DB_CREATE, DB_HASH);
+    db_init(&ctx->dbp, directory, "stars.db", stars_log, DB_CREATE, DB_BTREE);
     db_init(&ctx->sdbp, directory, "morton_index.sdb", stars_log, DB_CREATE,
-            DB_HASH);
+            DB_BTREE);
 
     ctx->dbp->associate(ctx->dbp, NULL, ctx->sdbp, get_id_callback, 0);
 
@@ -152,6 +152,63 @@ gaia_get_star_by_morton(DB* sdbp, u_int64_t index)
     }
 
     return star;
+}
+
+/**
+ * @brief Update the morton code of the star.
+ *
+ * @param dbp - Handle of the primary database
+ * @param id - The id of the star
+ * @param morton_index - The new morton index
+ * @return int - Error code or 0 if all is fine
+ */
+int
+gaia_update_star_morton(DB* dbp, u_int64_t id, u_int64_t morton_index)
+{
+    DBT key, data;
+    int ret;
+
+    SStar* star = (SStar*)db_get(dbp, &id, sizeof id);
+    star->morton_index = morton_index;
+
+    /* Zero out the DBTs before using them. */
+    memset(&key, 0, sizeof(DBT));
+    memset(&data, 0, sizeof(DBT));
+
+    key.data = &id;
+    key.size = sizeof id;
+    data.data = star;
+    data.size = sizeof(SStar);
+
+    ret = dbp->put(dbp, NULL, &key, &data, 0);
+
+    return ret;
+}
+
+/**
+ * @brief Search and remove a star from the db.
+ *
+ * @param dbp - Handle for the primary database
+ * @param id - The id of the star
+ * @return int - Error code or 0 if all is fine
+ */
+int
+gaia_delete_star(DB* dbp, u_int64_t id)
+{
+    DBT key;
+    int ret;
+
+    memset(&key, 0, sizeof key);
+
+    key.data = &id;
+    key.size = sizeof id;
+
+    ret = dbp->del(dbp, NULL, &key, 0);
+    if (ret == DB_NOTFOUND) {
+        printf("Key not found");
+    }
+
+    return ret;
 }
 
 /**
@@ -279,42 +336,26 @@ gaia_cursor_goto_star(DBC* dbcp, u_int64_t id)
 }
 
 /**
- * @brief Search and remove a star from the db.
+ * @brief Update the morton index of the star the cursor points to.
  *
- * @param dbp - Handle for the primary database
- * @param id - The id of the star
- * @return int - Error code or 0 if all is fine
- */
-int
-gaia_delete_star(DB* dbp, u_int64_t id)
-{
-    DBT key;
-    int ret;
-
-    memset(&key, 0, sizeof key);
-
-    key.data = &id;
-    key.size = sizeof id;
-
-    ret = dbp->del(dbp, NULL, &key, 0);
-    if (ret == DB_NOTFOUND) {
-        printf("Key not found");
-    }
-
-    return ret;
-}
-
-/**
- * @brief Update the morton code of the star.
- *
- * @param dbp - Handle of the primary database
- * @param id - The id of the star
+ * @param dbcp - Handle of the cursor
  * @param morton_index - The new morton index
  * @return int - Error code or 0 if all is fine
  */
 int
-gaia_update_star_morton(DB* dbp, u_int64_t id, u_int64_t morton_index)
+gaia_cursor_update_star_morton(DBC* dbcp, u_int64_t morton_index)
 {
+    int ret;
 
-    return 0;
+    SStar* star = gaia_cursor_get_star(dbcp);
+    star->morton_index = morton_index;
+
+    DBT data;
+    memset(&data, 0, sizeof(DBT));
+
+    data.data = star;
+    data.size = sizeof *star;
+    ret = dbcp->put(dbcp, NULL, &data, DB_CURRENT);
+
+    return ret;
 }

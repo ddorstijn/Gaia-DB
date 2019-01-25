@@ -22,77 +22,31 @@
 
 /**
  * @brief Star struct which holds basic data of a star.
- *
  */
 typedef struct _star
 {
-    /**
-     * @brief Morton-code of the star in a 3d-grid.
-     *
-     */
-    u_int64_t morton_index;
+    u_int64_t morton_index; /** @brief Morton-code of the star in a 3d-grid. */
+    u_int64_t id;           /** @brief ID extracted from dataset. */
 
-    /**
-     * @brief ID extracted from dataset.
-     *
-     */
-    u_int64_t id;
+    double x; /** @brief X position star. */
+    double y; /** @brief Y position star. */
+    double z; /** @brief Z position star. */
 
-    /**
-     * @brief X position star.
-     *
-     */
-    double x;
-
-    /**
-     * @brief Y position star.
-     *
-     */
-    double y;
-
-    /**
-     * @brief Z position star.
-     *
-     */
-    double z;
-
-    /**
-     * @brief Colour of the star in hex converted to int.
-     *
-     */
-    u_int32_t colour;
-
-    /**
-     * @brief Absolute magnitude of the star
-     */
-    float brightness;
+    u_int32_t colour; /** @brief Colour of the star in hex converted to int. */
+    float brightness; /** @brief Absolute magnitude of the star. */
 } SStar;
 
 /**
  * @brief A small struct which holds pointers to databases and the directory
  *        they are in.
- *
  */
 typedef struct _db_ctx
 {
-    /**
-     * @brief Handle to the primary database.
-     *
-     */
-    DB* dbp;
-
-    /**
-     * @brief Handle to the secondary database that holds indices for the
-     *        morton codes.
-     *
-     */
-    DB* sdbp;
-
-    /**
-     * @brief Home directory the databases are located in.
-     *
-     */
-    const char* db_dir;
+    DB* dbp;  /** @brief Handle to the primary database. */
+    DB* sdbp; /** @brief Handle to the secondary database that holds indices for
+               * the morton codes. */
+    const char*
+        db_dir; /** @brief Home directory the databases are located in. */
 } DB_CTX;
 
 DB_CTX* GAIADB_DLL
@@ -129,6 +83,9 @@ gaia_cursor_get_star(DBC* dbcp);
 
 int GAIADB_DLL
 gaia_cursor_goto_star(DBC* dbcp, u_int64_t id);
+
+int GAIADB_DLL
+gaia_cursor_update_star_morton(DBC* dbcp, u_int64_t morton_index);
 
 int GAIADB_DLL
 gaia_close_cursor(DBC* dbcp);
